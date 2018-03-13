@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>考勤记录</title>
+
+    <!-- Bootstrap -->
+    <link rel='stylesheet' href='/xyqd/stylesheets/bootstrap.min.css' />
+    <link rel='stylesheet' href='/xyqd/stylesheets/style.css' />
+    <link rel='stylesheet' href='/xyqd/stylesheets/ladda.min.css' />
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style type="text/css">
+      body{
+        padding: 0;
+        font-family: '微软雅黑';
+      }
+      .head{
+        color: #00B7FF;
+        font-weight: bold;
+        font-size:26px;
+        background-color: #F0F8FF;
+        border: 1px solid #ddd;
+        margin:5px 0;
+        height: 50px;
+        padding: 5px 0 0 0;
+
+      }
+      .part{
+        background-color: #F0F8FF;
+        border: 1px solid #ddd;
+        margin:5px 0px;
+        line-height: 150px;
+      }
+      .part:hover{
+        background-color: #EEEEE0;
+      }
+      @media (min-width: 1170px) {
+        .user{
+          height: 70px;
+          line-height: 70px;
+          vertical-align: bottom;
+          padding-top: 13px;
+        }
+      }
+      .user{
+        vertical-align: bottom;
+      }
+      hr{
+        margin: 5px 5px;
+        color: #EECFA1;
+        border: 1px solid;
+      }
+      .footer{
+        text-align: center;
+      }
+      a{
+        font-size: 18px;
+      }
+      a:hover{
+        /*font-size: 20px;*/
+        text-decoration:none
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+          <img src="/xyqd/images/szucsselogo.png" class="img-responsive" alt="">  
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 user">
+          <span class="pull-right user">当前用户:<span style="color: red"> <%=user.cn%></span> </span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <p class="text-center head"><span class="glyphicon glyphicon-ok"></span> 考勤记录</p>
+         
+        </div>
+      </div>
+
+      <div class="row">
+        <%for(var i=1;i<13;i++){%>
+          <div class="col-lg-3">
+          <p class="text-center part"><a href="/xyqd/record?m=<%=i%>"><span style="font-weight: bold;color: red;"><%=i%></span>&nbsp;月份签到记录</a></p>
+        </div>
+        <%}%>
+      </div>
+
+      <div class="row">
+        <hr>
+      </div>
+
+      <div class="row">
+        <div class="col-12 footer">
+          <span>2018 © 计算机与软件学院</span>
+        </div>
+      </div>
+    </div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script type="text/javascript" src='/xyqd/javascripts/jquery-1.10.2.min.js' ></script>
+    <script type="text/javascript" src='/xyqd/javascripts/bootstrap.min.js' ></script>
+    <script type="text/javascript" src='/xyqd/javascripts/moment-with-locales.min.js' ></script>
+    <script type="text/javascript" src='/xyqd/javascripts/spin.min.js' ></script>
+    <script type="text/javascript" src='/xyqd/javascripts/ladda.min.js' ></script>
+    <script type="text/javascript">
+      $(function(){
+        
+      })
+    </script>
+  </body>
+</html>

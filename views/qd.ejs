@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>首页</title>
+
+    <!-- Bootstrap -->
+    <link rel='stylesheet' href='/xyqd/stylesheets/bootstrap.min.css' />
+    <link rel='stylesheet' href='/xyqd/stylesheets/style.css' />
+    <link rel='stylesheet' href='/xyqd/stylesheets/ladda.min.css' />
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style type="text/css">
+      body{
+        padding: 0;
+        font-family: '微软雅黑';
+      }
+      .head{
+        color: #00B7FF;
+        font-weight: bold;
+        font-size:26px;
+        background-color: #F0F8FF;
+        border: 1px solid #ddd;
+        margin:5px 0;
+        height: 50px;
+        padding: 5px 0 0 0;
+
+      }
+      .part{
+        background-color: #F0F8FF;
+        border: 1px solid #ddd;
+        margin:5px 0px;
+        line-height: 150px;
+      }
+      .part:hover{
+        background-color: #EEEEE0;
+      }
+      @media (min-width: 1170px) {
+        .user{
+          height: 70px;
+          line-height: 70px;
+          vertical-align: bottom;
+          padding-top: 13px;
+        }
+      }
+      .user{
+        vertical-align: bottom;
+      }
+      hr{
+        margin: 5px 5px;
+        color: #EECFA1;
+        border: 1px solid;
+      }
+      .footer{
+        text-align: center;
+      }
+      a{
+        font-size: 18px;
+      }
+      a:hover{
+        font-size: 20px;
+        text-decoration:none
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+          <img src="/xyqd/images/szucsselogo.png" class="img-responsive" alt="">  
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 user">
+          <span class="pull-right user">当前用户:<span style="color: red"> <%=user.cn%></span> </span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <p class="text-center head"><span class="glyphicon glyphicon-ok"></span> 考勤</p>
+         
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <p class="text-center part"><span style="font-weight: bold;">日期：</span><span id="date" style="color:red;"></span>&nbsp;&nbsp;<button class="btn ladda-button" id="qdbtn" data-color="green" data-style="expand-right" data-size="xs"><span class="ladda-label" id="spanqdbtn"></span></button></p>
+        </div>
+      </div>
+
+      <div class="row">
+        <hr>
+      </div>
+
+      <div class="row">
+        <div class="col-12 footer">
+          <span>2018 © 计算机与软件学院</span>
+        </div>
+      </div>
+    </div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script type="text/javascript" src='/xyqd/javascripts/jquery-1.10.2.min.js' ></script>
+    <script type="text/javascript" src='/xyqd/javascripts/bootstrap.min.js' ></script>
+    <script type="text/javascript" src='/xyqd/javascripts/moment-with-locales.min.js' ></script>
+    <script type="text/javascript" src='/xyqd/javascripts/spin.min.js' ></script>
+    <script type="text/javascript" src='/xyqd/javascripts/ladda.min.js' ></script>
+    <script type="text/javascript">
+      $(function(){
+        'use strict'
+        let checkqd = '<%- JSON.stringify(qdtype) %>'
+            checkqd = JSON.parse(checkqd)
+        console.log('checkqd--->',checkqd)
+
+        moment.locale('zh-CN')
+        $('#date').text(moment().format("YYYY-MM-DD hh:mm:ss dddd a"))
+        setInterval(function(){
+          $('#date').text(moment().format("YYYY-MM-DD hh:mm:ss dddd a"))
+        },1000)
+        let qdtype = moment().format('a'),
+            qdweek = moment().format("dddd")
+
+        console.log('check date-->',qdtype);
+        //(qdtype == '上午') ? $('#spanqdbtn').text('我来了') : $('#spanqdbtn').text('我走了')
+        if(checkqd=='meiyou'&&qdtype == '上午'){
+          $('#spanqdbtn').text('我来了')
+        }
+        if(checkqd=='meiyou'&&qdtype == '下午'){
+          $('#spanqdbtn').text('我走了')
+        }
+        if(checkqd=='shangban'&&qdtype == '上午'){
+          $('#spanqdbtn').text('已签到')
+          $('button').prop('disabled', true); 
+        }
+        if(checkqd=='xiaban'&&qdtype == '下午'){
+          $('#spanqdbtn').text('已签到')
+          $('button').prop('disabled', true); 
+        }
+        if(qdweek == '星期六' || qdweek == '星期天'){
+          console.log($('#spanqdbtn').text())
+          $('#spanqdbtn').text('今天不用签到')
+        }
+        //(qdweek == '星期二') ? $('#spanqdbtn').text('今天不用签到') : $('#spanqdbtn').text('我走了')
+        $('#qdbtn').on('click',function(){
+          let l = Ladda.create( document.querySelector( '#qdbtn' ) )
+          
+          let qddate = moment().format("YYYY-MM-DD"),
+              qdtime = moment().format("hh:mm:ss"),
+              qdweek = moment().format("dddd"),
+              qdtype = moment().format("a")
+          let date_arr = qddate.split('-'),
+              month = date_arr[1]
+          console.log(qddate,qdtime,qdweek,qdtype)
+          let info = $('#spanqdbtn').text()
+          if(info=='我来了'||info=='我走了'){
+            l.start();
+            $.ajax({
+              url : '/xyqd/qd',
+              method : 'POST',
+              data : {
+                qddate : qddate,
+                qdtime : qdtime,
+                qdweek : qdweek,
+                qdtype : qdtype,
+                month : month
+              },
+              success : function(res){
+               if(res.code==0){
+                  l.stop()
+                 $('#spanqdbtn').text('已签到')
+                 $('button').prop('disabled', true); 
+               }else{
+                 console.log(res)
+               }
+              }
+            })
+          }else{
+            console.log('nnnnnnnnnnnnnn')
+          }
+        })
+      })
+    </script>
+  </body>
+</html>
