@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' type='text/css' href='/nm/stylesheets/layui.css' />
+  </head>
+  <body>
+    <div class="layui-container">  
+     <!--  <div class="layui-row">
+        <div class="layui-col-xs12"> -->
+          <form class="layui-form" action="" style="margin-top:15px;">
+            <div class="layui-form-item">
+              <label class="layui-form-label">签到事项</label>
+              <div class="layui-input-block">
+                <input type="text" name="title" required  lay-verify="required" placeholder="请输入签到事项"  class="layui-input" id="title">
+              </div>
+            </div>
+            <div class="layui-form-item">
+              <label class="layui-form-label">通知详情</label>
+              <div class="layui-input-block">
+                <textarea id="content" name="content" type="text/plain"></textarea>
+              </div>
+            </div>
+
+            <div class="layui-form-item">
+              <label class="layui-form-label ">用人方式</label>
+                <div class="layui-input-block" >
+                    <input type="checkbox" name="choose" value="1" title="管理技术岗" id="1" checked="">
+                    <input type="checkbox" name="choose" value="2" title="专职教师" id="2" checked="">
+                    <input type="checkbox" name="choose" value="3" title="博士后" id="3" checked="">
+                    <input type="checkbox" name="choose" value="4" title="专职研究人员" id="4" checked="">
+                </div> 
+            </div>
+
+            <div class="layui-form-item">
+              <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="formDemo">确认并生成链接</button>
+              </div>
+            </div>
+          </form>
+        <!-- </div>
+      </div> -->
+    </div>
+  </body>
+    <script src="/nm/javascripts/jquery3.2.min.js"></script>
+    <script src="/nm/javascripts/layui.all.js"></script>
+    <script>
+    $(document).ready(function() {
+      let form = layui.form,$ = layui.$
+      
+      //监听提交 13760277012
+      form.on('submit(formDemo)', function(data){
+        //复选框
+      let showinarr = new Array();
+      $("input:checkbox[name='choose']:checked").each(function(i){
+          showinarr.push($(this).val())
+      })
+      console.log('showinarr',showinarr)
+      showinarr = showinarr.join(',')
+      console.log('showinarr',showinarr)
+      
+        console.log('data',data)
+        data.field.choose = showinarr
+        //return false
+        $.ajax({
+          url:'/xyqd/add_qd',
+          type:'POST',
+          data:data.field,
+          dataType : "json",
+          success:function(result){
+            if(result.code == 0){
+              console.log('add success')
+              //墨绿深蓝风
+            let frameindex = layer.alert('操作成功', {
+              skin: 'layui-layer-molv' //样式类名
+              ,closeBtn: 0
+            }, function(){
+              layer.close(frameindex);
+              parent.layer.closeAll()
+            });         
+            }
+          },
+          error:function(msg){
+            console.log('ajax error msg',msg)
+          }
+        })
+        return false;
+      });
+    })
+    </script>
+
+</html>

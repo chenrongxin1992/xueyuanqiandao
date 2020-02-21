@@ -1,0 +1,88 @@
+@CHARSET "UTF-8";
+.thead a{
+	padding:2px 5px;
+	margin:0 5px;
+}
+.choice,.thead a:hover{
+	background:#0045c0;
+	color:#fff;
+}
+/*****table样式****/
+.table-wrap {
+	margin: 20px 0 20px;
+}
+.T-table{
+	word-break: break-all;
+	border-collapse: collapse;
+	/*border: solid 1px #e8e8e8;*/
+	width: 100%;
+	border-top: none;
+}
+.T-table thead {
+	background: #E6E6E6;
+}
+.T-table th {
+	color: #333;
+	border-bottom: 1px solid #ccc;
+	/*border-right: 1px solid #e8e8e8;*/
+}
+.T-th-wrap {
+	height: 34px;
+	line-height: 34px;
+	position: relative;
+	padding: 0 10px;
+}
+.T-table td {
+	padding: 5px;
+	/*border: solid 1px #e8e8e8;*/
+	overflow:hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.T-td-center {
+	text-align: center;
+}
+.T-td-left {
+	text-align: left;
+}
+.T-no-break {
+	overflow: hidden;
+	height: 20px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.T-td-wrap {
+	line-height: 20px;
+}
+.T-odd-tr td {
+	background-color: #F8F8F8;
+}
+/*****分页脚****
+.cl{
+	text-align: center;
+}
+#footer strong{
+	color: #fff;
+	padding: 1px 9px;
+	background:#629AFD;
+	margin: 0px 3px 0px 1px;
+	border:1px solid #058cbe;
+}
+#footer a:hover {
+	color: #fff;
+	border-color: #058cbe;
+	text-decoration: none;
+	background:#629AFD;
+}
+#footer a {
+	color: #333;
+	border-color: #CCC;
+	text-decoration: none;
+	padding:1px 9px;
+	margin: 0px 3px 0px 1px;
+	border:1px solid #c3c3c3;
+}
+*/
+
+
+

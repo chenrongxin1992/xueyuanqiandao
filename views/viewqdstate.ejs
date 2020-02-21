@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>通知详情</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" href="./layui/css/layui.css" media="all" />
+	<link rel="stylesheet" href="./stylesheets/public.css" media="all" />
+	<link rel="shortcut icon" href="./favicon.ico" />
+	<style type="text/css">
+	body{
+		/*font-size: */
+	}
+	.layui-table td, .layui-table th {
+	    position: relative;
+	    padding: 6px 12px;
+	    min-height: 20px;
+	    line-height: 20px;
+	    font-size: 10px;
+	}
+	.btnfloat{
+			float: right;
+			margin-left: 10px;
+		}
+	.footer{
+		text-align: center;
+	}
+	/*	body{
+		background:url("/xyqd/images/3716568_csse_logo_white.jpeg") repeat-y;
+		opacity:1;
+	}*/
+	body.indexBody{
+		background:url("/xyqd/images/1777902_red.png") no-repeat ;
+		background-position:50% 50%;
+		opacity: 0.97;
+		/*background-color: rgba(0,0,0,0.5);*/
+	}
+	.test{
+		/* IE9、标准浏览器、IE6和部分IE7内核的浏览器(如QQ浏览器)会读懂 
+	}
+	</style>
+</head>
+<body class="childrenBody indexBody">
+	<div class="layui-container test">
+		<div class="layui-row">
+			<div class="layui-col-xs12">
+				<img src="/xyqd/images/5582543_csse_logo.png" style="max-width:300px;margin-bottom: 10px;">
+			</div>
+		</div>
+	<blockquote class="layui-elem-quote ">
+		<%=shijian.title%> 
+	</blockquote>
+	<div class="layui-row">
+			<div class="layui-col-xs12">
+	<fieldset class="layui-elem-field indexBody">
+	  <legend>已知悉列表</legend>
+	  <div class="layui-field-box">
+	    <table class="layui-table "  lay-skin="line" lay-size="">
+			<colgroup>
+			    <col width="60">
+			    <col width="">
+			    <col width="150">
+			    
+			</colgroup>
+			<thead>
+			    <tr>
+			      <th>序号</th>
+			      <th>姓名</th>
+			      <th>类别</th>
+			      
+			    </tr> 
+			</thead>
+			<tbody>
+				<%yqd.forEach(function(item,val){%>
+					<tr>
+						<td><%=val+1%></td>
+						<td><%=item.name%></td>
+						<td><%=item.usertype%></td>
+						
+					</tr>
+				<%})%>
+				<tr>
+				<td colspan="3">人数：<%=yqd.length%></td>
+				</tr>
+			</tbody>
+	    </table>
+	  </div>
+	</fieldset>
+	</div>
+	</div>
+	<fieldset class="layui-elem-field">
+	  <legend>未知悉列表</legend>
+	  <div class="layui-field-box">
+	    <table class="layui-table indexBody"  lay-skin="line" lay-size="">
+			<colgroup>
+			    <col width="70">
+			    <col width="">
+			    <col width="200">
+			</colgroup>
+			<thead>
+			    <tr>
+			      <th>序号</th>
+			      <th>姓名</th>
+			      <th>类别</th>
+			    </tr> 
+			</thead>
+			<tbody>
+				<%wqd.forEach(function(item,val){%>
+					<tr>
+						<td><%=val+1%></td>
+						<td><%=item.name%></td>
+						<td><%=item.usertype%></td>
+					</tr>
+				<%})%>
+				<tr>
+				<td colspan="3">人数：<%=wqd.length%></td>
+				</tr>
+			</tbody>
+	    </table>
+	  </div>
+	</fieldset>
+	<div class="layui-row">
+  			<div class="layui-col-md12">
+  				<p class="footer"><span>计算机与软件学院 &copy; 2020</span></p>
+  				<hr/>
+  			</div>
+  	</div>
+	</div>
+
+<script type="text/javascript" src="./layui/layui.js"></script>
+<script type="text/javascript">
+layui.use(['jquery','table','form','upload'], function(){ 
+    let $ = layui.$ //重点处
+    let table = layui.table,
+    	form = layui.form,
+    	upload = layui.upload
+    form.render('select')
+    table.render({
+	    elem: '#cgzs_table'
+	    ,id:'table_cgzs'//重载需要
+	    ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+	    ,url: '/xyqd/qdlink_data' //数据接口
+	    ,page: true //开启分页
+	    ,cols: [[ //表头
+	      {type: 'numbers', title: '序号',width:90,align:'center'}
+	      ,{field: 'title', title: '事件',align:'center'}
+	      ,{field: 'link', title: '链接',align:'center'}
+	      ,{title:'操作', align:'center', toolbar: '#yjfxbar'} //这里的toolbar值是模板元素的选择器
+	    ]]
+	  });
+    $('#addkyxm').on('click', function(){
+    	console.log('新增事项')
+    	let index = layui.layer.open({
+            title : "新增事项",
+            type : 2,
+            area: ['450px', '380px'],
+            content : "add_qd",
+            success : function(layero, index){
+            },
+            end:function(){
+            	console.log('刷新table')
+            	table.reload('table_cgzs')
+            }
+        })
+        console.log('index',index)
+        //layui.layer.full(index);
+        $(window).on("resize",function(){
+            //layui.layer.full(index);
+        })
+    })
+    //查看名单
+    $('#checkpeolist').on('click', function(){
+    	console.log('查看名单')
+    	let index = layui.layer.open({
+            title : "人员列表",
+            type : 2,
+            area: ['450px', '380px'],
+            content : "checkpeolist",
+            success : function(layero, index){
+            },
+            end:function(){
+            	//console.log('刷新table')
+            	//table.reload('table_cgzs')
+            }
+        })
+        console.log('index',index)
+        //layui.layer.full(index);
+        $(window).on("resize",function(){
+            //layui.layer.full(index);
+        })
+    })
+    //import
+    let _loading
+    let uploadInst = upload.render({
+	    elem: '#import'
+	    ,url: '/xyqd/excelimport'
+	    ,accept: 'file' //允许上传的文件类型
+	    ,exts:'xlsx'
+	    ,multiple: false
+	    ,before: function(obj){ //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
+	    	console.log('上传前',obj)
+	    	_loading = layer.load(1,{
+		    	shade: [0.5, 'gray'], //0.5透明度的灰色背景
+    			content: '处理中...' ,
+    			success: function (layero) {
+    						_loading = layero.find('.layui-layer-content')
+					        _loading = layero.find('.layui-layer-content').css({
+					            'paddingTop': '50px',
+					            'width': '150px',
+					            'textAlign': 'center',
+					            'backgroundPositionX': 'center'
+					        });
+		    	}
+		 	})
+		}
+		,progress: function(n){
+		    let percent = n + '%' //获取进度百分比
+		    console.log('percent----------------->',percent,$(_loading).text())
+		}
+	    ,done: function(res){
+	      console.log('upload success',res)
+	      layer.closeAll()
+	      layer.msg('导入成功')
+	    }
+	    ,allDone: function(obj){ //当文件全部被提交后，才触发
+		    console.log(obj.total); //得到总文件数
+		    console.log(obj.successful); //请求成功的文件数
+		    console.log(obj.aborted); //请求失败的文件数
+		    layer.close(_loading)
+		    layer.msg('导入成功')
+		    table.reload('table_qklw',{})
+		}
+	    ,error: function(){
+	      //演示失败状态，并实现重传
+	      console.log('上传失败')
+	      layer.msg('导入失败')
+	    }
+	  });
+    //监听工具条
+	table.on('tool(cgzs_table)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+	  var data = obj.data; //获得当前行数据
+	  var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+	  var tr = obj.tr; //获得当前行 tr 的DOM对象
+	  console.log('dddd')
+	  if(layEvent === 'edit'){ //查看
+	    //do somehing
+	    var index = layui.layer.open({
+            title : "详情",
+            type : 2,
+            area: ['450px', '580px'],
+            content : "qd_detail?code="+data.code,
+            success : function(layero, index){
+            }
+        })
+        console.log('index',index)
+        layui.layer.full(index);
+        //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
+        $(window).on("resize",function(){
+            layui.layer.full(index);
+        })
+
+        //同步更新缓存对应的值
+	    // obj.update({
+	    //   username: '123'
+	    //   ,title: 'xxx'
+	    // });
+	  } else if(layEvent === 'del'){ //删除
+	    layer.confirm('确定删除吗?',{skin: 'layui-layer-molv' //样式类名
+				                     ,closeBtn: 0}, function(index){
+	      //obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+	      layer.close(index);
+	      //向服务端发送删除指令
+	       $.ajax({
+			  	url:'/xyqd/qddel',
+			  	type:'POST',
+			  	data:data,
+			  	dataType : "json",
+			  	success:function(result){
+			  		if(result.code == 0){
+			  			console.log('del success')	
+			  			table.reload('table_cgzs')		
+			  		}
+			  	},
+			  	error:function(msg){
+			  		console.log('ajax delete error msg',msg)
+			  	}
+			})
+	    });
+	  } 
+	});
+});
+</script>
+<script type="text/html" id="yjfxbar">
+	<a class="layui-btn layui-btn-xs" lay-event="edit"><i class="layui-icon">&#xe642;</i>查看详情</a>
+	<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
+</script>
+</body>
+</html>

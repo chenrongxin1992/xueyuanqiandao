@@ -1,0 +1,59 @@
+@CHARSET "UTF-8";
+#tmain li{
+	float:left;
+	padding:20px 40px 20px 0;
+}
+#tmain img{
+	width:82px;
+	height:120px;
+	border: 0;
+}
+.mli{
+	margin-left:15px;
+}
+.fl{
+	float:left;
+}
+.inline{
+	display:inline-block;
+}
+.mli h5{
+	font-size:16px;
+	line-height:30px;
+	color: #555;
+}
+.mli p{
+	line-height:25px;
+	color:#666;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	width: 260px;
+}
+.cl{
+	clear:both;
+	text-align: center;
+	margin-top: 20px;
+}
+/*****分页脚****
+#footer strong{
+	color: #fff;
+	padding: 1px 9px;
+	background:#629AFD;
+	margin: 0px 3px 0px 1px;
+	border:1px solid #058cbe;
+}
+#footer a:hover {
+	color: #fff;
+	border-color: #058cbe;
+	text-decoration: none;
+	background:#629AFD;
+}
+#footer a {
+	color: #333;
+	border-color: #CCC;
+	text-decoration: none;
+	padding:1px 9px;
+	margin: 0px 3px 0px 1px;
+	border:1px solid #c3c3c3;
+}*/

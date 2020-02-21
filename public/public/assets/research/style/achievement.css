@@ -1,0 +1,13 @@
+@CHARSET "UTF-8";
+.T-th-wrap {
+	text-align: left;
+}
+.T-table td {
+	padding: 5px 10px;
+	text-align: left;
+}
+.th-check,.td-check{vertical-align: middle;}
+
+table th {
+	padding: 5px;
+}

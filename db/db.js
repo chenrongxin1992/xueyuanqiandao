@@ -9,7 +9,7 @@ mongoose.Promise = global.Promise;
 const DB_URL = 'mongodb://xueyuanqiandao:youtrytry@localhost:27017/xueyuanqiandao'
 //本地
 //const DB_URL = 'mongodb://localhost:27017/kaoqin'{ keepAlive: 1, connectTimeoutMS: 30000, reconnectTries: 30, reconnectInterval: 2000 }
-mongoose.connect(DB_URL,{keepAlive: 1, connectTimeoutMS: 30000, reconnectTries: 30, reconnectInterval: 2000})
+mongoose.connect(DB_URL)
 
 /**
   * 连接成功

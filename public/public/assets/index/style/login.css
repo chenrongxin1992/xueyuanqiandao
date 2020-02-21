@@ -1,0 +1,121 @@
+@CHARSET "UTF-8";
+.blue-body {
+	color: #FFF;
+	background: #0b61a7;
+}
+.narrow-wrap {
+	width: 730px;
+	margin: 0 auto;
+}
+.narrow-top {
+	padding-top: 160px;
+}
+.narrow-logo {
+	width: 400px;
+	height: 45px;
+	background: url(/public/images/login.png) 0 0 no-repeat;
+}
+.narrow-content {
+	padding: 0 35px;
+	color: #323232;
+}
+.box {
+	background-color: #fff;
+	box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+.narrow-login {
+	padding: 50px 0 25px 338px;
+	background: url(/public/images/login-pic.png) 0 50px no-repeat;
+}
+.narrow-login .item {
+	padding: 0 0 15px 0;
+}
+.narrow-login .w-inp {
+	position: relative;
+}
+.narrow-login .placeholder {
+	color: #333;
+	cursor: text;
+	float: left;
+	font-size: 14px;
+	height: 41px;
+	line-height: 41px;
+	margin-bottom: -41px;
+	overflow: hidden;
+	width: 86%;
+	padding: 0 38px 0 5px;
+}
+.narrow-login .text {
+	border: 1px solid #B7B7B7;
+	float: left;
+	font-size: 20px;
+	height: 37px;
+	line-height: 37px;
+	letter-spacing: 1px;
+	padding: 1px 34px 1px 4px;
+	width: 86%;
+	background: repeat;
+	vertical-align: middle;
+	background-color: #FFF;
+	opacity: .65;
+	filter: alpha(opacity=65);
+	box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2) inset;
+}
+.validecode-wrap .text {
+	padding-right: 4px;
+	width: 130px;
+}
+#change_code {
+	height: 39px;
+	border: 1px #B7B7B7 solid;
+	margin-left: 5px;
+	position: relative;
+	z-index: 10;
+}
+#change_code img {
+	height: 39px;
+}
+#change_code_text {
+	line-height: 40px;
+	position: relative;
+	z-index: 10;
+	color: #2071C2;
+	margin-left: 15px;
+}
+#login_fail {
+	margin-top: 8px;
+	border: 1px dotted #ffbdbf;
+	color: #e6393d;
+	background: #ffebec;
+	padding: 3px 8px;
+	line-height: 18px;
+	/* display: none; */
+	width: 92%;
+}
+#post_login {
+	display: block;
+	height: 48px;
+	line-height: 48px;
+	background: url(/public/images/login1.png) 0 -48px no-repeat transparent;
+	text-align: center;
+	font-size: 16px;
+	color: #FFF;
+}
+.narrow-login .focus-in .placeholder{
+	color: #999;
+}
+.narrow-login .text-hide .placeholder{
+	display: none;
+}
+.footer{
+	color: #767778;
+	text-align: center;
+	font-size: 12px;
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+.footer p {
+	color: #B6D6F5;
+	line-height: 24px;
+	text-align: center;
+}

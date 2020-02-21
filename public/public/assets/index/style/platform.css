@@ -1,0 +1,28 @@
+@CHARSET "UTF-8";
+.avatar{
+	display:block;
+	width:230px;
+	float: left;
+	overflow: hidden;
+	margin: 20px 51px;
+	zoom:1;
+}
+.avatal{
+	display:block;
+	width:230px;
+	float: left;
+	overflow: hidden;
+	margin: 20px 0;
+	zoom:1;
+}
+.avatal img,.avatar img{
+	width:230px;
+	height:110px;
+}
+.avatar p,.avatal p{
+	height: 100px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	text-align: center;
+	/*white-space: nowrap;*/
+}

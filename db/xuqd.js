@@ -18,7 +18,13 @@ var qdSchema = new Schema({
     qdtype : {type:String},
     qiandaoshijianchuo : {type:String,default:null},
     shangban : {type:String,default:0},//0/1
-    xiaban : {type:String,default:0}   //0/1
+    xiaban : {type:String,default:0},   //0/1
+    qingjia : {type:String,default:0}//0/1
+})
+
+var add_qdSchema = new Schema({  
+    title : {type:String}
 })
 
 module.exports = mongoose.model('qd',qdSchema);
+module.exports = mongoose.model('add_qd',add_qdSchema);

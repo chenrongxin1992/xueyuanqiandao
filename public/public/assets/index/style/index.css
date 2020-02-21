@@ -1,0 +1,1058 @@
+@media (min-width: 768px) {
+	@CHARSET "UTF-8";
+	.banner{
+		position: relative;
+		border: 1px solid #f0f0f0;
+	}
+	.banner ul.bg{
+		height: 375px;
+		width: 1100px;
+	overflow: hidden;
+	}
+	.banner ul.bg img{
+	display: block;
+	}
+	.banner .slidesjs-navigation{
+		z-index: 20;
+	display: block;
+	background: url(/spatial/public/images/index-sprite.png) 0 0 no-repeat transparent;
+	}
+	.banner .slidesjs-navigation{
+		position: absolute;
+		width: 45px;
+		height: 45px;
+		line-height: 100px;
+		overflow: hidden;
+		top: 50%;
+		margin-top: -22.5px;
+	}
+	.banner .slidesjs-previous{
+		left: 18px;
+		background-position: 0 0;
+	}
+	.banner .slidesjs-next{
+		right: 18px;
+	background-position: 0 -100px;
+	}
+	.banner .slidesjs-previous:hover{
+	left: 18px;
+	background-position: 0 -50px;
+	}
+	.banner .slidesjs-next:hover{
+	right: 18px;
+	background-position: 0 -150px;
+	}
+	.banner .slidesjs-pagination{
+		position: absolute;
+		bottom: 30px;
+		width: 100%;
+		text-align: center;
+		z-index: 20;
+	}
+	.banner .slidesjs-pagination li{
+	display: inline-block;
+	*display: inline;
+	zoom: 1;
+	vertical-align: middle;
+	margin: 0 5px;
+	}
+	.banner .slidesjs-pagination li a{
+		display: block;
+		width: 12px;
+		height: 12px;
+		line-height: 99px;
+		overflow: hidden;
+		background: url(/spatial/public/images/index-sprite.png) -50px -50px no-repeat transparent;
+	}
+	.banner .slidesjs-pagination li a:hover,
+	.banner .slidesjs-pagination li a.active{
+	background-position: -50px 0;
+	}
+
+	.covers{
+		position: relative;
+	}
+	.covers .slidesjs-pagination{
+		position: absolute;
+		bottom: 15px;
+		right: 86px;
+		z-index: 20;
+	}
+	.covers .slidesjs-pagination li{
+	display: inline-block;
+	*display: inline;
+	zoom: 1;
+	vertical-align: middle;
+	margin: 0 5px;
+	}
+	.covers .slidesjs-pagination li a{
+	display: block;
+	width: 10px;
+	height: 10px;
+	line-height: 99px;
+	overflow: hidden;
+	background: #404040;
+	}
+	.covers .slidesjs-pagination li a:hover,
+	.covers .slidesjs-pagination li a.active{
+	background: #0044bf;
+	}
+
+	.para{
+		line-height: 24px;
+		text-indent: 2em;
+		font-size: 14px;
+		padding: 25px 0 0;
+	}
+
+	.wrap.list-wrap.first-row{
+		padding: 10px 0 0;
+	}
+
+	.link{
+		text-decoration: none;
+	}
+	.link:hover{
+	text-decoration: underline;
+	}
+
+	.link-gray, .text-gray{
+		color: #878787;
+	}
+
+	.list{
+		overflow: hidden;
+		white-space: nowrap;
+	}
+	.list .h{
+	line-height: 40px;
+	height: 40px;
+	border-bottom: 1px solid #d2d2d2;
+	position: relative;
+	}
+	.list .h .t{
+	font-size: 18px;
+	color: #333;
+	float: left;
+	}
+	.list .h .o{
+	float: right;
+	}
+	.list .b{
+	padding: 15px 0 5px;
+	position: relative;
+	zoom: 1;
+	}
+
+
+
+	.platforms-list {
+
+	}
+
+	
+	.platforms-list .h .o{
+		position: absolute;
+		padding: 0 7px;
+		height: 11px;
+		float: none;
+		top: 50%;
+		margin-top: -5.5px;
+		right: 0;
+	}
+	.platforms-list .h .o .slidesjs-navigation{
+		position: absolute;
+		top: 0;
+		display: block;
+		zoom: 1;
+		width: 7px;
+		height: 11px;
+		line-height: 99px;
+		overflow: hidden;
+		background: url(/spatial/public/images/index-sprite.png) -80px 0 no-repeat transparent;
+	}
+	.platforms-list .h .o .slidesjs-previous{
+		margin-right: 3px;
+		left: 0;
+	}
+	.platforms-list .h .o .slidesjs-previous:hover{
+		background-position: -80px -50px;
+	}
+	.platforms-list .h .o .slidesjs-next{
+		right: 0px;
+	margin-left: 3px;
+	background-position: -110px 0;
+	}
+	.platforms-list .h .o .slidesjs-next:hover{
+	background-position: -110px -50px;
+	}
+	.platforms-list .h .o .slidesjs-pagination{
+	display: block;
+	float: left;
+	zoom: 1;
+	margin-top: 2px;
+	}
+	.platforms-list .slidesjs-pagination li{
+	float: left;
+	margin: 0 3px;
+	}
+	.platforms-list .slidesjs-pagination li a{
+		display: block;
+		width: 6px;
+		height: 6px;
+		line-height: 99px;
+		overflow: hidden;
+		background: url(/spatial/public/images/index-sprite.png) -140px -50px no-repeat transparent;
+	}
+	.platforms-list .slidesjs-pagination li a:hover,
+	.platforms-list .slidesjs-pagination li a.active{
+	background-position: -140px 0;
+	}
+
+	.platform{
+		margin: 0 -9px;
+	}
+	.platform .list-page{
+		height: 178px;
+		overflow: hidden;
+		position: relative;
+		zoom: 1;
+	}
+	.platform .item{
+	float: left;
+	width: 245px;
+	overflow: hidden;
+	margin: 0 9px;
+	line-height: 24px;
+	}
+	.platform .list-page .cover{
+		display: block;
+		width: 245px;
+		height: 118px;
+		overflow: hidden;
+		background: url(/spatial/public/images/broken.png) 0 0 no-repeat transparent;
+		border: 1px solid #f0f0f0;	
+	}
+	.platform .list-page .cover img{
+	display: block;
+	height: 118px;
+	}
+	.platform .list-page .title{
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	margin: 12px 0 0;
+	font-size: 14px;
+	}
+	.achievements-list {
+
+	}
+
+	.platform li {
+		display: block;
+		float: left;
+		width: 20% ;
+		margin:0 25px;
+	}
+
+	.platform li a {
+		display: block;
+		height: 300px;
+		border: #0044bf 1px dotted;
+		background-size: 100% 300px !important;
+	}
+	.platform li p {
+		text-align: center;
+		white-space: normal;
+		
+	}
+
+	.news-list{
+		float: left;
+		width: 47%;
+	}
+	.notice-list{
+		float: right;
+		width: 47%;
+	}
+	
+	section.contact-list {
+		white-space: normal;
+	}
+
+	section.copyright-list {
+	}
+
+	.notice-list .b ul,
+	.news-list .b ul{
+		margin-top: -10px;
+	}
+
+	.achievements-list .h .o{
+		position: absolute;
+		padding: 0 7px;
+		height: 11px;
+		float: none;
+		top: 50%;
+		margin-top: -5.5px;
+		right: 0;
+	}
+	.achievements-list .h .o .slidesjs-navigation{
+		position: absolute;
+		top: 0;
+		display: block;
+		zoom: 1;
+		width: 7px;
+		height: 11px;
+		line-height: 99px;
+		overflow: hidden;
+		background: url(/spatial/public/images/index-sprite.png) -80px 0 no-repeat transparent;
+	}
+	.achievements-list .h .o .slidesjs-previous{
+		margin-right: 3px;
+		left: 0;
+	}
+	.achievements-list .h .o .slidesjs-previous:hover{
+		background-position: -80px -50px;
+	}
+	.achievements-list .h .o .slidesjs-next{
+		right: 0px;
+	margin-left: 3px;
+	background-position: -110px 0;
+	}
+	.achievements-list .h .o .slidesjs-next:hover{
+	background-position: -110px -50px;
+	}
+	.achievements-list .h .o .slidesjs-pagination{
+	display: block;
+	float: left;
+	zoom: 1;
+	margin-top: 2px;
+	}
+	.achievements-list .slidesjs-pagination li{
+	float: left;
+	margin: 0 3px;
+	}
+	.achievements-list .slidesjs-pagination li a{
+		display: block;
+		width: 6px;
+		height: 6px;
+		line-height: 99px;
+		overflow: hidden;
+		background: url(/spatial/public/images/index-sprite.png) -140px -50px no-repeat transparent;
+	}
+	.achievements-list .slidesjs-pagination li a:hover,
+	.achievements-list .slidesjs-pagination li a.active{
+	background-position: -140px 0;
+	}
+
+	.notice-list .b li{
+		overflow: hidden;
+		text-overflow: ellipsis;
+		line-height: 31px;
+		position: relative;
+		line-height: 42px;
+		height: 42px;
+		padding: 0 0 0 30px;
+		border-bottom: 1px dotted #dcdcdc;
+	}
+	.notice-list .b li a{
+		padding: 0 0 0 5px;
+	}
+	.news li{
+		position: relative;
+		line-height: 42px;
+		height: 42px;
+		padding: 0 0 0 30px;
+		border-bottom: 1px dotted #dcdcdc;
+	}
+	.news li .link{
+		float: left;
+		max-width: 400px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+	.news li span, .notices li span{
+		float: right;
+		color: #878787;
+	}
+	.news li i, .notices li i{
+		position: absolute;
+		top: 50%;
+		left: 0;
+		margin-top: -7px;
+		display: block;
+		width: 14px;
+		height: 14px;
+		line-height: 99px;
+		overflow: hidden;
+		background: url(/spatial/public/images/index-sprite.png) -50px -100px no-repeat transparent;
+	}
+	.contact-list .details{
+		width: 100%;
+		border-collapse: collapse;
+		font-size: 14px;
+	}
+	.contact-list .details th{
+	font-weight: normal;
+	vertical-align: top;
+	padding: 3px 0;
+	text-align: left;
+	}
+	.contact-list .details td{
+	vertical-align: top;
+	/* padding: 3px 0 10px; */
+	}
+	#lab_map{
+		width: 290px;
+		height: 120px;
+		padding: 3px;
+		border: 1px solid #ddd;
+		background-color: #fff;
+		overflow: hidden;
+		background: url(/spatial/public/images/lab-map.png) 0 0 no-repeat transparent;
+	}
+	.achievements{
+		margin: 0 -9px;
+	}
+	.achievements .list-page{
+		height: 178px;
+		overflow: hidden;
+		position: relative;
+		zoom: 1;
+	}
+	.achievements .item{
+	float: left;
+	width: 245px;
+	overflow: hidden;
+	margin: 0 9px;
+	line-height: 24px;
+	}
+	.achievements .list-page .cover{
+		display: block;
+		width: 245px;
+		height: 118px;
+		overflow: hidden;
+		background: url(/spatial/public/images/broken.png) 0 0 no-repeat transparent;
+		border: 1px solid #f0f0f0;	
+	}
+	.achievements .list-page .cover img{
+	display: block;
+	height: 118px;
+	}
+	.achievements .list-page .title{
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	margin: 12px 0 0;
+	font-size: 14px;
+	}
+	.contact-us.list .b{
+		padding: 0 0 5px;
+	}
+	.contact-us .details{
+	width: 100%;
+	border-collapse: collapse;
+	margin: 0 0 15px;
+	font-size: 14px;
+	}
+	.contact-us .details th{
+	font-weight: normal;
+	vertical-align: top;
+	padding: 3px 0;
+	text-align: left;
+	width: 50px;
+	}
+	.contact-us .details td{
+	vertical-align: top;
+	padding: 3px 0;
+	text-align: left;
+	}
+	.contact-us #lab_map{
+		width: 100%;
+		height: 400px;
+		background: transparent;
+	}
+
+	#committee_table .table td {
+		white-space: normal;
+	}
+
+	.links{
+		margin: 10px auto 18px;
+		height: 42px;
+		overflow: hidden;
+		width: 1035px;
+		position: relative;
+	}
+
+	.links .link-wrap{
+		display: inline-block;
+		height: 42px;
+		overflow: hidden;
+	}
+
+	.links .link{
+		display: inline-block;
+		width: 90px;
+		height: 40px;
+		border: 1px solid #dbdbdb;
+		overflow: hidden;
+		position: relative;
+		margin: 0 8px 0 0;
+	}
+
+	.links img{
+		border: 0 none;
+		display: block;
+		width: 90px;
+		height: 40px;
+	}
+
+	.popup{
+		display: none;
+		position: absolute;
+		background: rgba(0,0,0,.8);
+		padding: 15px;
+		top: 200px;
+		left: 200px;
+		border-radius: 5px;
+	}
+
+	.popup .caret{
+		display: block;
+		position: absolute;
+		bottom: -20px;
+		left: 50%;
+		margin-left: -10px;
+		width: 0;
+		height: 0;
+		border-width: 10px;
+		border-style: solid;
+		border-color: rgba(0,0,0,.8) transparent transparent;
+	}
+
+	.file-list{
+		
+	}
+
+	.file-list .list-head{
+	color: #004080;
+	height: 40px;
+	line-height: 40px;
+	border-bottom: 1px solid #c9c9c9;
+	font-size: 18px;
+	}
+
+	.file-list ul{
+		padding: 28px 0 0 15px;
+	}
+
+	.file-list li{
+	line-height: 24px;
+	}
+
+	.file-list a{
+	color: #0045c0;
+	}
+
+	.addition-list{
+		margin-top: 20px;
+	}
+
+	.addition-list h4{
+	height: 28px;
+	line-height: 28px;
+	margin-bottom: 10px;
+	}
+
+	table.nested{
+		border-collapse: collapse;
+	}
+
+	table.nested td,
+	table.nested th{
+	border: 1px solid #ddd;
+	padding: 6px 10px;
+	}
+
+	table.nested .num{
+	width: 40px;
+	text-align: center;
+	}
+
+	table.nested .short{
+	width: 120px;
+	}
+
+	table.nested a:hover{
+		text-decoration: underline;
+	}
+}
+li.out-of-date a {
+	/*color: #eeeeee*/
+}
+li.year-choose {
+	width: 150px;
+}
+li.year-choose span {
+	display: inline-block;
+}
+@media (max-width: 768px) {
+	@CHARSET "UTF-8";
+	.banner{
+		position: relative;
+		border: 1px solid #f0f0f0;
+	}
+	.banner ul.bg{
+		height: 375px;
+		/* width: 1100px; */
+		overflow: hidden;
+	}
+	.banner ul.bg img{
+		display: block;
+	}
+	.banner .slidesjs-navigation{
+		z-index: 20;
+		display: block;
+		background: url(/spatial/public/images/index-sprite.png) 0 0 no-repeat transparent;
+	}
+	.banner .slidesjs-navigation{
+		position: absolute;
+		width: 45px;
+		height: 45px;
+		line-height: 100px;
+		overflow: hidden;
+		top: 50%;
+		margin-top: -22.5px;
+	}
+	.banner .slidesjs-previous{
+		left: 18px;
+		background-position: 0 0;
+	}
+	.banner .slidesjs-next{
+		right: 18px;
+		background-position: 0 -100px;
+	}
+	.banner .slidesjs-previous:hover{
+		left: 18px;
+		background-position: 0 -50px;
+	}
+	.banner .slidesjs-next:hover{
+		right: 18px;
+		background-position: 0 -150px;
+	}
+	.banner .slidesjs-pagination{
+		position: absolute;
+		bottom: 30px;
+		width: 100%;
+		text-align: center;
+		z-index: 20;
+	}
+	.banner .slidesjs-pagination li{
+		display: inline-block;
+		*display: inline;
+		zoom: 1;
+		vertical-align: middle;
+		margin: 0 5px;
+	}
+	.banner .slidesjs-pagination li a{
+		display: block;
+		width: 12px;
+		height: 12px;
+		line-height: 99px;
+		overflow: hidden;
+		background: url(/spatial/public/images/index-sprite.png) -50px -50px no-repeat transparent;
+	}
+	.banner .slidesjs-pagination li a:hover,
+	.banner .slidesjs-pagination li a.active{
+		background-position: -50px 0;
+	}
+	.covers{
+		position: relative;
+	}
+	.covers .slidesjs-pagination{
+		position: absolute;
+		bottom: 15px;
+		right: 86px;
+		z-index: 20;
+	}
+	.covers .slidesjs-pagination li{
+		display: inline-block;
+		*display: inline;
+		zoom: 1;
+		vertical-align: middle;
+		margin: 0 5px;
+	}
+	.covers .slidesjs-pagination li a{
+		display: block;
+		width: 10px;
+		height: 10px;
+		line-height: 99px;
+		overflow: hidden;
+		background: #404040;
+	}
+	.covers .slidesjs-pagination li a:hover,
+	.covers .slidesjs-pagination li a.active{
+		background: #0044bf;
+	}
+	.para{
+		line-height: 24px;
+		text-indent: 2em;
+		font-size: 14px;
+		padding: 25px 0 0;
+	}
+
+	.wrap.list-wrap.first-row{
+		padding: 10px 0 0;
+	}
+
+	.link{
+		text-decoration: none;
+	}
+	.link:hover{
+	text-decoration: underline;
+	}
+
+	.link-gray, .text-gray{
+		color: #878787;
+	}
+
+	.list{
+		overflow: hidden;
+		white-space: nowrap;
+	}
+	.list .h{
+		line-height: 40px;
+		height: 40px;
+		border-bottom: 1px solid #d2d2d2;
+		position: relative;
+	}
+	.list .h .t{
+		font-size: 18px;
+		color: #333;
+		float: left;
+	}
+	.list .h .o{
+		float: right;
+	}
+	.list .b{
+		padding: 15px 0 5px;
+		position: relative;
+		zoom: 1;
+	}
+
+	.notice-list .b ul,
+	.news-list .b ul{
+		margin-top: -10px;
+	}
+	.platform li {
+		display: block;
+		float: left;
+		width: 100% ;
+		margin-bottom: 10px;
+		background-size: 100% 100px !important;
+	}
+
+	.platform li a {
+		text-align: center;
+		display: block;
+		height: 100px;
+		border: #0044bf 1px dotted;
+		white-space: normal;
+	}
+	.achievements-list .h .o{
+		position: absolute;
+		padding: 0 7px;
+		height: 11px;
+		float: none;
+		top: 50%;
+		margin-top: -5.5px;
+		right: 0;
+	}
+	.achievements-list .h .o .slidesjs-navigation{
+		position: absolute;
+		top: 0;
+		display: block;
+		zoom: 1;
+		width: 7px;
+		height: 11px;
+		line-height: 99px;
+		overflow: hidden;
+		background: url(/spatial/public/images/index-sprite.png) -80px 0 no-repeat transparent;
+	}
+	.achievements-list .h .o .slidesjs-previous{
+		margin-right: 3px;
+		left: 0;
+	}
+	.achievements-list .h .o .slidesjs-previous:hover{
+		background-position: -80px -50px;
+	}
+	.achievements-list .h .o .slidesjs-next{
+		right: 0px;
+		margin-left: 3px;
+		background-position: -110px 0;
+	}
+	.achievements-list .h .o .slidesjs-next:hover{
+		background-position: -110px -50px;
+	}
+	.achievements-list .h .o .slidesjs-pagination{
+		display: block;
+		float: left;
+		zoom: 1;
+		margin-top: 2px;
+	}
+	.achievements-list .slidesjs-pagination li{
+		float: left;
+		margin: 0 3px;
+	}
+	.achievements-list .slidesjs-pagination li a{
+		display: block;
+		width: 6px;
+		height: 6px;
+		line-height: 99px;
+		overflow: hidden;
+		background: url(/spatial/public/images/index-sprite.png) -140px -50px no-repeat transparent;
+	}
+	.achievements-list .slidesjs-pagination li a:hover,
+	.achievements-list .slidesjs-pagination li a.active{
+		background-position: -140px 0;
+	}
+	.notice-list .b li{
+		overflow: hidden;
+		text-overflow: ellipsis;
+		line-height: 31px;
+	}
+	.notice-list .b li a{
+		padding: 0 0 0 5px;
+	}
+	.news li{
+		position: relative;
+		line-height: 42px;
+		height: 42px;
+		padding: 0 0 0 30px;
+		border-bottom: 1px dotted #dcdcdc;
+	}
+	.news li .link{
+		float: left;
+		max-width: 200px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+	.news li span{
+		float: right;
+		color: #878787;
+	}
+	.news li i{
+		position: absolute;
+		top: 50%;
+		left: 0;
+		margin-top: -7px;
+		display: block;
+		width: 14px;
+		height: 14px;
+		line-height: 99px;
+		overflow: hidden;
+		background: url(/spatial/public/images/index-sprite.png) -50px -100px no-repeat transparent;
+	}
+	section.contact-list {
+		width: 100%;
+		white-space: normal;
+		display: inline-block;
+	}
+	.contact-list .details{
+		width: 100%;
+		border-collapse: collapse;
+		font-size: 14px;
+	}
+	.contact-list .details th{
+		font-weight: normal;
+		vertical-align: top;
+		padding: 3px 0;
+		text-align: center;
+	}
+	.contact-list .details td{
+		vertical-align: top;
+		/* padding: 3px 0 10px; */
+	}
+	#lab_map{
+		width: 290px;
+		height: 120px;
+		padding: 3px;
+		border: 1px solid #ddd;
+		background-color: #fff;
+		overflow: hidden;
+		background: url(/spatial/public/images/lab-map.png) 0 0 no-repeat transparent;
+	}
+	.achievements{
+		margin: 0 -9px;
+	}
+	.achievements .list-page{
+		height: 178px;
+		overflow: hidden;
+		position: relative;
+		zoom: 1;
+	}
+	.achievements .item{
+		float: left;
+		width: 245px;
+		overflow: hidden;
+		margin: 0 9px;
+		line-height: 24px;
+	}
+	.achievements .list-page .cover{
+		display: block;
+		width: 245px;
+		height: 118px;
+		overflow: hidden;
+		background: url(/spatial/public/images/broken.png) 0 0 no-repeat transparent;
+		border: 1px solid #f0f0f0;	
+	}
+	.achievements .list-page .cover img{
+		display: block;
+		height: 118px;
+	}
+	.achievements .list-page .title{
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		margin: 12px 0 0;
+		font-size: 14px;
+	}
+	.contact-us.list .b{
+		padding: 0 0 5px;
+	}
+	.contact-us .details{
+		width: 100%;
+		border-collapse: collapse;
+		margin: 0 0 15px;
+		font-size: 14px;
+	}
+	.contact-us .details th{
+		font-weight: normal;
+		vertical-align: top;
+		padding: 3px 0;
+		text-align: left;
+		width: 50px;
+	}
+	.contact-us .details td{
+		vertical-align: top;
+		padding: 3px 0;
+		text-align: left;
+	}
+	.contact-us #lab_map{
+		width: 100%;
+		height: 400px;
+		background: transparent;
+	}
+	#committee_table .table td {
+		white-space: normal;
+	}
+
+	.links{
+		margin: 10px auto 18px;
+		height: 42px;
+		overflow: hidden;
+		position: relative;
+	}
+
+	.links .link-wrap{
+		display: inline-block;
+		height: 42px;
+		overflow: hidden;
+	}
+
+	.links .link{
+		display: inline-block;
+		width: 90px;
+		height: 40px;
+		border: 1px solid #dbdbdb;
+		overflow: hidden;
+		position: relative;
+		margin: 0 8px 0 0;
+	}
+
+	.links img{
+		border: 0 none;
+		display: block;
+		width: 90px;
+		height: 40px;
+	}
+	.popup{
+		display: none;
+		position: absolute;
+		background: rgba(0,0,0,.8);
+		padding: 15px;
+		top: 200px;
+		left: 200px;
+		border-radius: 5px;
+	}
+
+	.popup .caret{
+		display: block;
+		position: absolute;
+		bottom: -20px;
+		left: 50%;
+		margin-left: -10px;
+		width: 0;
+		height: 0;
+		border-width: 10px;
+		border-style: solid;
+		border-color: rgba(0,0,0,.8) transparent transparent;
+	}
+
+	.file-list{
+		
+	}
+
+	.file-list .list-head{
+		color: #004080;
+		height: 40px;
+		line-height: 40px;
+		border-bottom: 1px solid #c9c9c9;
+		font-size: 18px;
+	}
+
+	.file-list ul{
+		padding: 28px 0 0 15px;
+	}
+
+	.file-list li{
+		line-height: 24px;
+	}
+
+	.file-list a{
+		color: #0045c0;
+	}
+
+	.addition-list{
+		margin-top: 20px;
+	}
+	.addition-list h4{
+		height: 28px;
+		line-height: 28px;
+		margin-bottom: 10px;
+	}
+	table.nested{
+		border-collapse: collapse;
+	}
+
+	table.nested td,
+	table.nested th{
+		border: 1px solid #ddd;
+		padding: 6px 10px;
+	}
+
+	table.nested .num{
+		width: 40px;
+		text-align: center;
+	}
+
+	table.nested .short{
+		width: 120px;
+	}
+
+	table.nested a:hover{
+		text-decoration: underline;
+	}
+}

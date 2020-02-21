@@ -91,7 +91,7 @@
 
       <div class="row">
         <div class="col-12">
-          <p class="text-center part"><span style="font-weight: bold;">日期：</span><span id="date" style="color:red;"></span>&nbsp;&nbsp;<button class="btn ladda-button" id="qdbtn" data-color="green" data-style="expand-right" data-size="xs"><span class="ladda-label" id="spanqdbtn"></span></button></p>
+          <p class="text-center part"><span style="font-weight: bold;">日期：</span><span id="date" style="color:red;"></span><br><button class="btn ladda-button" id="qdbtn" data-color="green" data-style="expand-right" data-size="xs"><span class="ladda-label" id="spanqdbtn"></span></button>&nbsp;&nbsp;<button class="btn ladda-button" id="qjbtn" data-color="blue" data-style="expand-right" data-size="xs"><span class="ladda-label" id="spanqjbtn"></button></p>
         </div>
       </div>
 
@@ -105,6 +105,25 @@
         </div>
       </div>
     </div>
+
+    <div class="modal fade modal-msg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="data-modal">
+    <div class="modal-dialog " role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="gridSystemModalLabel">提示</h4>
+        </div>
+        <div class="modal-body">
+          请确认你已经向老板请过假了再来点这里！
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default sure" data-dismiss="modal" id="qingjia">确定</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script type="text/javascript" src='/xyqd/javascripts/jquery-1.10.2.min.js' ></script>
@@ -114,6 +133,54 @@
     <script type="text/javascript" src='/xyqd/javascripts/ladda.min.js' ></script>
     <script type="text/javascript">
       $(function(){
+        'use strict'
+        $(".modal-msg").on("hidden.bs.modal", function() {
+                console.log('---- here ----')
+              //$(this).removeData("bs.modal");
+              $(".modal-body").children().remove();  
+              console.log('----- clear modal window -----')
+              kk.stop()
+              //$(".modal-body").remove()
+              //console.log('----- clear again -----')
+       });
+        var kk ;
+       $('#qjbtn').on('click',function(){
+          kk = Ladda.create( document.querySelector( '#qjbtn' ) )
+
+           $('.modal-msg').modal('show')
+           kk.start();
+           //$('#gridSystemModalLabel').text(room_name+' 预订信息')
+        })
+        $('#qingjia').on('click',function(){
+          let qddate = moment().format("YYYY-MM-DD"),
+              qdtime = moment().format("hh:mm:ss"),
+              qdweek = moment().format("dddd"),
+              qdtype = moment().format("a")
+          let date_arr = qddate.split('-'),
+              month = date_arr[1]
+          console.log('请假--->',qddate,qdtime,qdweek,qdtype)
+          $.ajax({
+              url : '/xyqd/qj',
+              method : 'POST',
+              data : {
+                qddate : qddate,
+                qdtime : qdtime,
+                qdweek : qdweek,
+                qdtype : qdtype,
+                month : month
+              },
+              success : function(res){
+               if(res.code==0){
+                  kk.stop()
+                 $('#spanqjbtn').text('已请假')
+                 $('button').prop('disabled', true); 
+               }else{
+                 console.log(res)
+               }
+              }
+            })
+        })
+
         'use strict'
         let checkqd = '<%- JSON.stringify(qdtype) %>'
             checkqd = JSON.parse(checkqd)
@@ -129,24 +196,57 @@
 
         console.log('check date-->',qdtype);
         //(qdtype == '上午') ? $('#spanqdbtn').text('我来了') : $('#spanqdbtn').text('我走了')
-        if(checkqd=='meiyou'&&qdtype == '上午'){
+        if((checkqd=='meiyou'&&qdtype == '上午')||(checkqd=='meiyou'&&qdtype == '早上')){
           $('#spanqdbtn').text('我来了')
+          $('#spanqjbtn').text('请个假')
         }
-        if(checkqd=='meiyou'&&qdtype == '下午'){
+        if((checkqd=='meiyou'&&qdtype == '下午')){
           $('#spanqdbtn').text('我走了')
+          $('#spanqjbtn').text('请个假')
         }
-        if(checkqd=='shangban'&&qdtype == '上午'){
+        if((checkqd=='shangban'&&qdtype == '上午')||(checkqd=='shangban'&&qdtype == '早上')){
           $('#spanqdbtn').text('已签到')
+          $('#spanqjbtn').text('请个假')
           $('button').prop('disabled', true); 
         }
         if(checkqd=='xiaban'&&qdtype == '下午'){
           $('#spanqdbtn').text('已签到')
+          $('#spanqjbtn').text('请个假')
           $('button').prop('disabled', true); 
         }
-        if(qdweek == '星期六' || qdweek == '星期天'){
+        if(checkqd=='qingjia'&&qdtype == '下午'){
+          $('#spanqdbtn').text('我来了')
+          $('#spanqjbtn').text('已请假')
+          $('button').prop('disabled', true); 
+        }
+        if((checkqd=='qingjia'&&qdtype == '上午')||(checkqd=='qingjia'&&qdtype == '早上')){
+          $('#spanqdbtn').text('我来了')
+          $('#spanqjbtn').text('已请假')
+          $('button').prop('disabled', true); 
+        }
+        if(qdweek == '星期六' || qdweek == '星期天' || qdweek == '星期日'){
           console.log($('#spanqdbtn').text())
           $('#spanqdbtn').text('今天不用签到')
+          $('#spanqjbtn').text('今天不用请假')
         }
+        if(qdtype == '中午'){
+          $('#spanqdbtn').text('中午休息')
+          $('#spanqjbtn').text('请个假')
+          $('button').prop('disabled', true); 
+        }
+        if(qdtype == '晚上' && (checkqd=='xiaban')){
+          $('#spanqdbtn').text('已签到')
+          $('#spanqjbtn').text('请个假')
+          $('button').prop('disabled', true); 
+        }
+        if(qdtype == '晚上' && !(checkqd=='xiaban')){
+          $('#spanqdbtn').text('我走了')
+          $('#spanqjbtn').text('请个假')
+          //$('button').prop('disabled', true); 
+        }
+
+
+
         //(qdweek == '星期二') ? $('#spanqdbtn').text('今天不用签到') : $('#spanqdbtn').text('我走了')
         $('#qdbtn').on('click',function(){
           let l = Ladda.create( document.querySelector( '#qdbtn' ) )
@@ -160,6 +260,8 @@
           console.log(qddate,qdtime,qdweek,qdtype)
           let info = $('#spanqdbtn').text()
           if(info=='我来了'||info=='我走了'){
+            console.log('info-->',info)
+            console.log('qdtype-->',qdtype)
             l.start();
             $.ajax({
               url : '/xyqd/qd',

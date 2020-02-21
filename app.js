@@ -25,11 +25,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //add session
 app.use(session({ 
-	resave: false, //添加 resave 选项  
+	resave: true, //添加 resave 选项  
   	saveUninitialized: true, //添加 saveUninitialized 选项 
     secret: 'xueyuanqiandao',
     cookie:{ 
-        maxAge: 1000*60*60*24
+        maxAge: 1000*60*60*24*7*24
     }
 }));
 app.use(function(req,res,next){ 
