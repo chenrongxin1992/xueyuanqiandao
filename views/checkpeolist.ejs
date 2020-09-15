@@ -21,7 +21,7 @@
 </head>
 <body class="childrenBody">
 	
-	<table class="layui-table"  lay-skin="line" lay-size="">
+	<table class="layui-table" id="table_cgzs" lay-skin="line" lay-size="" lay-filter="table_cgzs">
 		<colgroup>
 		    <col width="70">
 		    <col width="210">
@@ -38,6 +38,7 @@
 		      <th>用人方式</th>
 		      <th>当前状态</th>
 		      <th>手机号码</th>
+		      <th>操作</th>
 		    </tr> 
 		</thead>
 		<tbody>
@@ -52,6 +53,7 @@
 					<td><%=item.usertype%></td>
 					<td><%=item.userstate%></td>
 					<td><%=item.phone%></td>
+					<td><button class="layui-btn layui-btn-sm delpeople" data-type="getCheckData" value="<%=item._id%>">删除</button></td>
 				</tr>
 			<%})}%>
 		</tbody>
@@ -61,6 +63,9 @@
 <script type="text/javascript">
 layui.use(['jquery','table','form','upload'], function(){ 
     let $ = layui.$ //重点处
+
+    
+
     let table = layui.table,
     	form = layui.form,
     	upload = layui.upload
@@ -78,6 +83,32 @@ layui.use(['jquery','table','form','upload'], function(){
 	      ,{title:'操作', align:'center', toolbar: '#yjfxbar'} //这里的toolbar值是模板元素的选择器
 	    ]]
 	  });
+    $('.delpeople').on('click', function(){
+    	console.log('删除',$(this).val())
+    	let _id = $(this).val()
+    	layer.confirm('确定删除吗?'
+    		,{skin: 'layui-layer-molv' //样式类名
+			,closeBtn: 0}, function(index){
+				layer.close(index);
+		      //向服务端发送删除指令
+		       $.ajax({
+				  	url:'/xyqd/delpeople',
+				  	type:'POST',
+				  	data:{'_id':_id},
+				  	dataType : "json",
+				  	success:function(result){
+				  		if(result.code == 0){
+				  			console.log('del success')	
+				  			//table.reload('table_cgzs')		
+				  			location.reload()
+				  		}
+				  	},
+				  	error:function(msg){
+				  		console.log('ajax delete error msg',msg)
+				  	}
+				})
+			})
+    })
     $('#addkyxm').on('click', function(){
     	console.log('新增事项')
     	let index = layui.layer.open({

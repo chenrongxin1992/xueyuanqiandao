@@ -10,16 +10,19 @@
         <div class="layui-col-xs12"> -->
           <form class="layui-form" action="" style="margin-top:15px;">
             <div class="layui-form-item">
-              <label class="layui-form-label">签到事项</label>
+              <label class="layui-form-label">事项</label>
               <div class="layui-input-block">
                 <input type="text" name="title" required  lay-verify="required" placeholder="请输入签到事项"  class="layui-input" id="title">
               </div>
             </div>
             <div class="layui-form-item">
               <label class="layui-form-label">通知详情</label>
-              <div class="layui-input-block">
-                <textarea id="content" name="content" type="text/plain"></textarea>
-              </div>
+              <!-- <div class="layui-input-block"> -->
+                <!-- <textarea id="content" name="content" type="text/plain"></textarea> -->
+                <div class="layui-input-block" id="content">
+                  <!-- <script id="content" type="text/plain"></script> -->
+                </div>
+              <!-- </div> -->
             </div>
 
             <div class="layui-form-item">
@@ -44,10 +47,16 @@
   </body>
     <script src="/nm/javascripts/jquery3.2.min.js"></script>
     <script src="/nm/javascripts/layui.all.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/wangeditor@3.1.1/release/wangEditor.min.js"></script>
     <script>
     $(document).ready(function() {
       let form = layui.form,$ = layui.$
-      
+      var E = window.wangEditor
+      var editor1 = new E('#content')
+      editor1.customConfig.menus = [
+      'fontSize',
+      'fontName']
+      editor1.create()
       //监听提交 13760277012
       form.on('submit(formDemo)', function(data){
         //复选框
@@ -58,9 +67,10 @@
       console.log('showinarr',showinarr)
       showinarr = showinarr.join(',')
       console.log('showinarr',showinarr)
-      
+
         console.log('data',data)
         data.field.choose = showinarr
+        data.field.content = editor1.txt.html()
         //return false
         $.ajax({
           url:'/xyqd/add_qd',

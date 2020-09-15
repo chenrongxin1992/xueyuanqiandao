@@ -64,11 +64,13 @@ var add_qdSchema = new Schema({
     content:{type:String},
     link:{type:String},
     code:{type:String},
-    state:{type:Number,default:0},
+    state:{type:Number,default:1},
     choose:{type:String,default:'1,2,3,4'},
+    date:{type:String,default:moment().format('YYYY-MM-DD')},
     timestamp:{type:String,default:moment().format('X')}
 })
 
+//签到满足条件，1人员表中有数据 2用户类别符合签到设置
 //人员
 var peopleSchema = new Schema({  
     name : {type:String},
@@ -87,11 +89,60 @@ var qdrecordSchema = new Schema({
     usertype:{type:String},
     userstate:{type:String},
     phone:{type:String},
+    openid:{type:String},
+    avatarUrl : {type:String},
+    city:{type:String},
+    country:{type:String},
+    gender:{type:Number},
+    language:{type:String},
+    nickName:{type:String},
+    province:{type:String},
     qddate:{type:String,default:moment().format('YYYY-MM-DD HH:mm:ss')},
     timestamp:{type:String,default:moment().format('X')}
 })
+
+//微信用户信息
+var wx_userinfoSchema = new Schema({
+    name : {type:String},
+    cardno:{type:String},
+    usertype:{type:String},
+    userstate:{type:String},
+    phone:{type:String},  
+    openid:{type:String},
+    avatarUrl : {type:String},
+    city:{type:String},
+    country:{type:String},
+    gender:{type:Number},
+    language:{type:String},
+    nickName:{type:String},
+    province:{type:String},
+    createdate:{type:String,default:moment().format('YYYY-MM-DD HH:mm:ss')},
+    createtimestamp:{type:String,default:moment().format('X')}
+})
+
+//完整微信用户信息---使用这个
+var wx_userinfo1Schema = new Schema({
+    name : {type:String},
+    cardno:{type:String},
+    usertype:{type:String},
+    userstate:{type:String},
+    phone:{type:String},  
+    openid:{type:String},
+    avatarUrl : {type:String},
+    city:{type:String},
+    country:{type:String},
+    gender:{type:Number},
+    language:{type:String},
+    nickName:{type:String},
+    province:{type:String},
+    createdate:{type:String,default:moment().format('YYYY-MM-DD HH:mm:ss')},
+    createtimestamp:{type:String,default:moment().format('X')}
+})
+
 
 exports.meeting = mongoose.model('meeting',meetingSchema)
 exports.add_qd = mongoose.model('add_qd',add_qdSchema);
 exports.people = mongoose.model('people',peopleSchema);
 exports.qdrecord = mongoose.model('qdrecord',qdrecordSchema);
+exports.wx_userinfo = mongoose.model('wx_userinfo',wx_userinfoSchema);
+exports.wx_userinfo1 = mongoose.model('wx_userinfo1',wx_userinfo1Schema);

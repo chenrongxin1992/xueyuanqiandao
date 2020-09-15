@@ -19,7 +19,7 @@
 	</style>
 </head>
 <body class="childrenBody">
-	<blockquote class="layui-elem-quote">事项列表<div id="btnele" style="display: inline;"><button class="layui-btn layui-btn-sm btnfloat" id="addkyxm"><i class="layui-icon">&#xe654;</i>新增</button><!-- <button class="layui-btn layui-btn-sm" data-type="getCheckData" style="float: right;" id="import">导入名单</button> --><button class="layui-btn layui-btn-sm" data-type="getCheckData" style="float: right;" id="checkpeolist">查看名单</button></div></blockquote>
+	<blockquote class="layui-elem-quote">事项列表<div id="btnele" style="display: inline;"><button class="layui-btn layui-btn-sm btnfloat" id="addkyxm"><i class="layui-icon">&#xe654;</i>新增</button><!-- <button class="layui-btn layui-btn-sm" data-type="getCheckData" style="float: right;" id="import">导入名单</button> --><button class="layui-btn layui-btn-sm" data-type="getCheckData" style="float: right;" id="checkpeolist">查看名单</button><button class="layui-btn layui-btn-sm" data-type="getCheckData" style="float: right;" id="addpeople">增加人员</button></div></blockquote>
 	<!-- <div class="demoTable layui-form">
 	 <button class="layui-btn" data-type="getCheckData"  id="addkyxm">新增</button>
 	</div> -->
@@ -44,7 +44,7 @@ layui.use(['jquery','table','form','upload'], function(){
 	      ,{field: 'title', title: '事件',align:'center'}
 	      ,{field: 'content', title: '详情',align:'center'}
 	      ,{field: 'choose1', title: '人员筛选',align:'center'}
-	      //,{field: 'link', title: '链接',align:'center'}
+	      ,{field: 'link', title: '链接',align:'center'}
 	      ,{title:'操作', align:'center', toolbar: '#yjfxbar'} //这里的toolbar值是模板元素的选择器
 	    ]]
 	  });
@@ -65,7 +65,7 @@ layui.use(['jquery','table','form','upload'], function(){
         console.log('index',index)
         layui.layer.full(index);
         $(window).on("resize",function(){
-            //layui.layer.full(index);
+            layui.layer.full(index);
         })
     })
     //查看名单
@@ -76,6 +76,27 @@ layui.use(['jquery','table','form','upload'], function(){
             type : 2,
             //area: ['710px', '600px'],
             content : "checkpeolist",
+            success : function(layero, index){
+            },
+            end:function(){
+            	//console.log('刷新table')
+            	//table.reload('table_cgzs')
+            }
+        })
+        console.log('index',index)
+        layui.layer.full(index);
+        $(window).on("resize",function(){
+            //layui.layer.full(index);
+        })
+    })
+    //查看名单
+    $('#addpeople').on('click', function(){
+    	console.log('增加人员')
+    	let index = layui.layer.open({
+            title : "增加人员",
+            type : 2,
+            //area: ['710px', '600px'],
+            content : "addpeople",
             success : function(layero, index){
             },
             end:function(){

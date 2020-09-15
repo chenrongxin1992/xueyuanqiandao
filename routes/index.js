@@ -5,6 +5,8 @@ var router = express.Router();
 const add_qd = require('../db/add_db').add_qd
 const people = require('../db/add_db').people
 const qdrecord = require('../db/add_db').qdrecord
+const wx_userinfo = require('../db/add_db').wx_userinfo
+const wx_userinfo1 = require('../db/add_db').wx_userinfo1
 const request = require('request')
 const moment = require('moment')
 const async = require('async')
@@ -15,7 +17,376 @@ let MyServer = "http://qiandao.szu.edu.cn:81",
 	CASserver = 'https://authserver.szu.edu.cn/authserver/',
 	ReturnURL = "http://qiandao.szu.edu.cn:81";
 
+//小程序秘钥：d1c54ee1214d731cf7e99f5c7169157a
+//小程序id：wx8b884fc33f7cb4da
+//微信
+const wx_appid = 'wx8b884fc33f7cb4da',
+	  wx_secret = 'd1c54ee1214d731cf7e99f5c7169157a'
+//获取openid
+router.post('/getuseropenid',function(req,res){
+	console.log('code---->',req.body.code)
+	let code = req.body.code
+	//https://api.weixin.qq.com/sns/jscode2session?appid=appid&secret=secret&js_code=jscode&grant_type=authorization_code
+	let url = 'https://api.weixin.qq.com/sns/jscode2session?appid=' + wx_appid + '&secret=' + wx_secret +
+			  '&js_code=' + req.body.code + '&grant_type=authorization_code'
+	request(url,function(error,response,body){
+		if(!error && response.statusCode==200){
+			console.log('body---->',body)
+			return res.end(body)
+		}else{
+			console.log('something wrong ',error)
+			return res.end(error)
+		}
+	})
+})
 
+//保存用户信息
+router.post('/saveuserinfo',function(req,res){
+	console.log('userinfo---->',req.body.userinfo)
+	console.log('code---->',req.body.code)
+	let code = req.body.code,userinfo = req.body.userinfo
+	//https://api.weixin.qq.com/sns/jscode2session?appid=appid&secret=secret&js_code=jscode&grant_type=authorization_code
+	let url = 'https://api.weixin.qq.com/sns/jscode2session?appid=' + wx_appid + '&secret=' + wx_secret +
+			  '&js_code=' + req.body.code + '&grant_type=authorization_code'
+	request(url,function(error,response,body){
+		if(!error && response.statusCode==200){
+			
+			body = JSON.parse(body)
+			console.log('openid---->',body.openid)
+			let search = add_qd.findOne({})
+				search.where('state').equals(1)
+				search.sort({'timestamp':-1})
+				search.exec(function(finderr,ntdoc){
+					if(finderr){
+						res.end(finderr)
+					}
+					return res.json({'openid':body.openid,'notice':ntdoc})
+				})
+			// let search = wx_userinfo1.findOne({})
+			// 	search.where('openid').equals(body.openid)
+			// 	search.exec(function(searcherr,doc){
+			// 		if(searcherr){
+			// 			console.log('searcherr',searcherr)
+			// 			return res.end(searcherr)
+			// 		}
+			// 		if(!doc){
+			// 			console.log('没存在记录，保存,先找员工表看是否有该人')
+			// 			let search = add_qd.findOne({})
+			// 				search.where('state').equals(1)
+			// 				search.sort({'timestamp':-1})
+			// 				search.exec(function(finderr,ntdoc){
+			// 				if(finderr){
+			// 					res.end(finderr)
+			// 				}
+			// 				return res.json({'openid':body.openid,'notice':ntdoc})
+			// 				})
+			// 			// let search1 = people.findOne({})
+			// 			// 	search1.where('cardno').equals(req.body.cardno)
+			// 			// 	search1.exec(function(err1,doc1){
+			// 			// 		if(err1){
+			// 			// 			console.log('err1',err1)
+			// 			// 			return res.end(err1)
+			// 			// 		}
+			// 			// 		// if(doc1){
+			// 			// 		// 	console.log('有该员工')
+			// 			// 		// 	let newwx_userinfo = new wx_userinfo1({
+			// 			// 		// 		name : doc1.name,
+			// 			// 		// 		cardno:doc1.cardno,
+			// 			// 		// 		usertype:doc1.usertype,
+			// 			// 		// 		userstate:doc1.userstate,
+			// 			// 		// 		phone:doc1.phone,  
+			// 			// 		// 		openid:(body.openid)?body.openid:null,
+			// 			// 		// 		avatarUrl:(userinfo.avatarUrl)?userinfo.avatarUrl:null,
+			// 			// 		// 		city:(userinfo.city)?userinfo.city:null,
+			// 			// 		// 		country:(userinfo.country)?userinfo.country:null,
+			// 			// 		// 		gender:(userinfo.gender)?userinfo.gender:null,
+			// 			// 		// 		language:(userinfo.language)?userinfo.language:null,
+			// 			// 		// 		nickName:(userinfo.nickName)?userinfo.nickName:null,
+			// 			// 		// 		province:(userinfo.province)?userinfo.province:null
+			// 			// 		// 	})
+			// 			// 		// 	newwx_userinfo.save(function(err,peopleinfo){
+			// 			// 		// 		if(err){
+			// 			// 		// 			console.log('save userinfo err',err)
+			// 			// 		// 			return res.end(err)
+			// 			// 		// 		}
+										
+			// 			// 		// 	})
+						
+			// 			// 		// }
+								
+			// 			// 	})
+			// 		}
+			// 		if(doc && typeof(doc)!='undefined'){
+			// 			console.log('存在记录，更新数据')
+			// 			let search = add_qd.findOne({})
+			// 				search.where('state').equals(1)
+			// 				search.sort({'timestamp':-1})
+			// 				search.exec(function(finderr,ntdoc){
+			// 					if(finderr){
+			// 						res.end(finderr)
+			// 					}
+			// 					return res.json({'openid':body.openid,'notice':ntdoc,'peopleinfo':doc})
+			// 				})
+			// 			// let obj = {
+			// 			// 	avatarUrl:(userinfo.avatarUrl)?userinfo.avatarUrl:null,
+			// 			// 	city:(userinfo.city)?userinfo.city:null,
+			// 			// 	country:(userinfo.country)?userinfo.country:null,
+			// 			// 	gender:(userinfo.gender)?userinfo.gender:null,
+			// 			// 	language:(userinfo.language)?userinfo.language:null,
+			// 			// 	nickName:(userinfo.nickName)?userinfo.nickName:null,
+			// 			// 	province:(userinfo.province)?userinfo.province:null
+			// 			// }
+			// 			// wx_userinfo1.updateOne({'openid':body.openid},obj,function(updateerr){
+			// 			// 	if(updateerr){
+			// 			// 		console.log('updateerr',updateerr)
+			// 			// 		return res.end(updateerr)
+			// 			// 	}
+							
+			// 			// 	//return res.json({'openid':body.openid})
+			// 			// })
+			// 		}
+			// 	})
+		}else{
+			console.log('something wrong ',error)
+			return res.json({'msg':error})
+		}
+	})
+})
+//已有用户信息，直接跳到主页
+router.post('/wx_getnoticecode',function(req,res){
+	let search = add_qd.findOne({})
+		search.where('state').equals(1)
+		search.sort({'timestamp':-1})
+		search.exec(function(finderr,ntdoc){
+			if(finderr){
+				res.end(finderr)
+			}
+			return res.json({'notice':ntdoc})
+		})
+})
+//返回最新通知信息
+router.post('/wx_newqd',function(req,res){
+	let search = add_qd.findOne({})
+		//search.where('state').equals(1)
+		search.where('code').equals(req.body.code)
+		search.sort({'timestamp':-1})
+		search.exec(function(finderr,ntdoc){
+			if(finderr){
+				res.end(finderr)
+			}
+			
+			if(req.body.openid){
+				let search1 = wx_userinfo1.findOne({})
+					search1.where('openid').equals(req.body.openid)
+					search1.exec(function(wxerr,wxdoc){
+						if(wxerr){
+							console.log('search1 wxerr',wxerr)
+							res.end(wxerr)
+						}
+						if(!wxdoc){
+							console.log('还没绑定该人员信息')
+							return res.json({'notice':ntdoc,'wxdoc':null})
+						}
+						if(wxdoc){
+							console.log('有该人信息，返回')
+							return res.json({'notice':ntdoc,'wxdoc':wxdoc})
+						}
+					})
+				}else{
+					return res.json({'notice':ntdoc,'wxdoc':null})
+				}
+			
+		})
+})
+//签到
+router.post('/wx_add_qd_1',function(req,res){
+	async.waterfall([
+		function(cb){
+			//是否已有记录
+			let search = qdrecord.findOne({})
+				search.where('cardno').equals(req.body.cardno)
+				search.where('code').equals(req.body.code)
+				search.exec(function(err,doc){
+					console.log(err,doc)
+					if(err){
+						cb(err)
+					}
+					if(!doc){
+						console.log('1111')
+						cb(null,null)
+					}
+					if(doc){
+						console.log('2222')
+						cb(null,'已知悉，直接跳转')
+					}
+				})
+		},
+		function(docc,cb){
+			if(docc){
+				console.log('已有记录，跳过')
+				cb(null,docc)
+			}else{
+				console.log('没有签到记录')
+
+			let search = people.findOne({})
+				search.where('cardno').equals(req.body.cardno)
+				search.exec(function(err,doc){
+				if(err){
+					cb(err)
+					//return res.json({'code':-1,'msg':err})
+				}
+				if(doc==null){
+					cb(1,'请输入有效的校园卡号')
+					//return res.json({'code':-1,'msg':'请输入有效的校园卡号'})
+				}
+				if(doc!=null){
+					console.log('存在该人,看人员属性是否在筛选的人里面',doc)
+					let tempchoose = '1'
+					if(doc.usertype=='管理技术岗'){
+						tempchoose = '1'
+					}else if(doc.usertype=='教师岗'){
+						tempchoose='2'
+					}else if(doc.usertype=='博士后'){
+						tempchoose='3'
+					}else{
+						tempchoose='4'
+					}
+					let search1 = add_qd.findOne({'choose':{'$regex':tempchoose}})
+						search1.where('code').equals(req.body.code)
+						search1.exec(function(error1,doc1){
+							if(error1){
+								cb(error1)
+							}
+							else if(doc1){
+								console.log('在本次签到范围')
+								console.log('增加微信用户信息，先存该人信息，再存签到记录')
+								console.log('判断有没有记录，有的话人员信息就不存了')
+								let newsearch = wx_userinfo1.findOne({})
+									newsearch.where('openid').equals(req.body.wxinfo.openid)
+									newsearch.exec(function(new_wxerr,new_wxdoc){
+										if(new_wxerr){
+											console.log('220---',new_wxerr)
+											cb(new_wxerr)
+										}
+										if(!new_wxdoc){
+											console.log('没记录，保存----')
+											let newwx_userinfo = new wx_userinfo1({
+												name : doc.name,
+											    cardno:doc.cardno,
+											    usertype:doc.usertype,
+											    userstate:doc.userstate,
+											    phone:doc.phone,  
+											    openid:req.body.wxinfo.openid,
+											    avatarUrl : req.body.wxinfo.avatarUrl,
+											    city:(req.body.wxinfo.city)?req.body.wxinfo.city:null,
+											    country:(req.body.wxinfo.country)?req.body.wxinfo.country:null,
+											    gender:(req.body.wxinfo.gender)?req.body.wxinfo.gender:null,
+											    language:(req.body.wxinfo.language)?req.body.wxinfo.language:null,
+											    nickName:req.body.wxinfo.nickName,
+											    province:(req.body.wxinfo.province)?req.body.wxinfo.province:null
+											})
+											newwx_userinfo.save(function(wxerr){
+												if(wxerr){
+													console.log('存完整微信用户信息失败',wxerr)
+													return false
+												}
+												console.log('存完整微信用户信息成功')
+												let new_qdrecord = new qdrecord({
+						            				code:req.body.code,
+						            				name:doc.name,
+						            				cardno:doc.cardno,
+						            				usertype : doc.usertype,
+						            				userstate:doc.userstate,
+						            				phone:doc.phone,
+						            				openid:req.body.wxinfo.openid,
+												    avatarUrl : req.body.wxinfo.avatarUrl,
+												    city:(req.body.wxinfo.city)?req.body.wxinfo.city:null,
+												    country:(req.body.wxinfo.country)?req.body.wxinfo.country:null,
+												    gender:(req.body.wxinfo.gender)?req.body.wxinfo.gender:null,
+												    language:(req.body.wxinfo.language)?req.body.wxinfo.language:null,
+												    nickName:req.body.wxinfo.nickName,
+												    province:(req.body.wxinfo.province)?req.body.wxinfo.province:null
+						            			})
+						            			new_qdrecord.save(function(err){
+						            				if(err){
+						            					console.log('保存记录',err)
+						            					return res.end(err)
+						            				}
+						            				cb()
+						            			})
+											})
+										}
+										if(new_wxdoc){
+											console.log('有绑定记录，跳过这步')
+											let new_qdrecord = new qdrecord({
+						            				code:req.body.code,
+						            				name:doc.name,
+						            				cardno:doc.cardno,
+						            				usertype : doc.usertype,
+						            				userstate:doc.userstate,
+						            				phone:doc.phone,
+						            				openid:req.body.wxinfo.openid,
+												    avatarUrl : req.body.wxinfo.avatarUrl,
+												    city:(req.body.wxinfo.city)?req.body.wxinfo.city:null,
+												    country:(req.body.wxinfo.country)?req.body.wxinfo.country:null,
+												    gender:(req.body.wxinfo.gender)?req.body.wxinfo.gender:null,
+												    language:(req.body.wxinfo.language)?req.body.wxinfo.language:null,
+												    nickName:req.body.wxinfo.nickName,
+												    province:(req.body.wxinfo.province)?req.body.wxinfo.province:null
+						            			})
+						            			new_qdrecord.save(function(err){
+						            				if(err){
+						            					console.log('保存记录',err)
+						            					return res.end(err)
+						            				}
+						            				cb()
+						            			})
+										}
+									})
+							}
+							else{
+								console.log('不在本次签到范围')
+								cb(1,'你不在本次通知范围')
+							}
+						})//search1
+	            }//doc!=null
+			})
+		}
+	}
+	],function(error,result){
+		if(error){
+			return res.json({'code':-1,'msg':result})
+		}
+		return res.json({'code':0,'msg':result})
+	})
+	
+})
+router.get('/wx_index', function(req, res, next) {
+	let search = add_qd.findOne({})
+		search.where('state').equals(1)
+		search.sort({'timestamp':-1})
+		search.exec(function(err,doc){
+			if(err){
+				return res.end(err)
+			}
+			//return res.redirect('/xyqd/newqd?code='+doc.code+'&w=w')
+			return res.redirect('/newqd?code='+doc.code+'&w=w')
+		})
+  //res.render('index', { title: 'Express' });
+});
+//获取通知列表
+router.post('/wx_getnoticelist',function(req,res){
+	let search = add_qd.find({})
+		search.where('state').equals(1)
+		search.sort({'timestamp':-1})
+		search.exec(function(finderr,ntdoc){
+			if(finderr){
+				res.end(finderr)
+			}
+			res.json({'noticelist':ntdoc})
+		})
+})
+//网页版
 /* GET home page. qiandao.szu.edu.cn:81/xyqd/newqd?code=3639vjh7&w=w*/
 router.get('/', function(req, res, next) {
 	let search = add_qd.findOne({})
@@ -26,20 +397,22 @@ router.get('/', function(req, res, next) {
 				return res.end(err)
 			}
 			return res.redirect('/xyqd/newqd?code='+doc.code+'&w=w')
+			//return res.redirect('/newqd?code='+doc.code+'&w=w')
 		})
   //res.render('index', { title: 'Express' });
 });
+
 router.post('/changestate',function(req,res){
 	async.waterfall([
-		function(cb){
-			add_qd.updateOne({'state':1},{'state':0},function(err){
-				if(err){
-					cb(err)
-				}
-				cb()
-			})
+		// function(cb){
+		// 	add_qd.updateOne({'state':1},{'state':0},function(err){
+		// 		if(err){
+		// 			cb(err)
+		// 		}
+		// 		cb()
+		// 	})
 			
-		},
+		// },
 		function(cb){
 			let search = add_qd.findOne({})
 				search.where('code').equals(req.body.code)
@@ -166,7 +539,7 @@ router.get('/qdlink',function(req,res){
 					choose1 =  choose1 + '管理技术岗,'
 				}
 				else if(newitem==2){
-					choose1 = choose1 + '专职教师,'
+					choose1 = choose1 + '教师岗,'
 				}
 				else if(newitem==3){
 					choose1 = choose1 + '博士后,'
@@ -193,7 +566,7 @@ router.get('/newpeople',function(req,res){
 	let	new_people = new people({
 						    name : '彭小刚',
 						    cardno : '14759',
-						    usertype : '专职教师',
+						    usertype : '教师岗',
 						    userstate : '在职',
 						    phone : 'xx'
 						})
@@ -252,8 +625,8 @@ router.post('/excelimport',function(req,res){
 						    name : item[0].trim(),
 						    cardno : item[1].trim(),
 						    usertype : item[2].trim(),
-						    userstate : item[3].trim(),
-						    phone : item[4].trim()
+						    userstate : item[3].trim()//,
+						    //phone : item[4].trim()
 						})
 						new_people.save(function(err){
 						    if(err){						    	
@@ -277,7 +650,7 @@ router.post('/excelimport',function(req,res){
 			}).catch(error=>{
 				console.log("************** 读表 error!");
 				console.log(error); 
-				return res.json({'code':-1,'msg':error.stack})
+				return res.json({'code':-1,'msg':error})
 			});
    		}//err
     })//form
@@ -292,6 +665,35 @@ router.get('/checkpeolist',function(req,res){
 			}
 			return res.render('checkpeolist',{'data':docs})
 		})
+}).post('/add_people',function(req,res){
+	let search = people.findOne({})
+		search.where('cardno').equals(req.body.cardno)
+		search.exec(function(err,doc){
+			if(err){
+				return res.json({'code':-1,'msg':err})
+			}
+			if(doc){
+				return res.json({'code':-1,'msg':'该卡号已存在'})
+			}
+			if(!doc){
+				let newpeople = new people({
+					name:req.body.name,
+					cardno:req.body.cardno,
+					usertype:req.body.usertype,
+					userstate:req.body.userstate,
+					phone:req.body.phone
+				})
+				newpeople.save(function(err){
+					if(err){
+						return res.json({'code':-1,'msg':err})
+					}
+					return res.json({'code':0,'msg':'success'})
+				})
+			}
+		})
+	
+}).get('/addpeople',function(req,res){
+	res.render('addpoeple')
 })
 //删除事项
 router.post('/qddel',function(req,res){
@@ -320,8 +722,8 @@ router.get('/newqd',function(req,res){
 			if(err){
 				res.end(err)
 			}
-			// if(typeof(doc.content)=='undefined'){
-			// 	doc.content = null
+			// if(doc.content==null){
+			// 	doc.content = ''
 			// }
 			res.render('newqd',{'data':doc})
 		})
@@ -369,7 +771,7 @@ router.get('/newqd',function(req,res){
 					let tempchoose = '1'
 					if(doc.usertype=='管理技术岗'){
 						tempchoose = '1'
-					}else if(doc.usertype=='专职教师'){
+					}else if(doc.usertype=='教师岗'){
 						tempchoose='2'
 					}else if(doc.usertype=='博士后'){
 						tempchoose='3'
@@ -670,7 +1072,7 @@ router.get('/newqd_1',function(req,res){
 							querytype1=querytype1+'管理技术岗,'
 						}
 						if(item==2){
-							querytype1 = querytype1+'专职教师,'
+							querytype1 = querytype1+'教师岗,'
 						}
 						if(item==3){
 							querytype1=querytype1+'博士后,'
@@ -782,13 +1184,13 @@ router.get('/newqd_1',function(req,res){
 					querytype = shijian.choose.split(',')
 					querytype.forEach(function(item,index){
 						if(item==1){
-							querytype1=querytype1+'管理技术岗,'
+							querytype1=querytype1+'管理技术岗;'
 						}
 						if(item==2){
-							querytype1 = querytype1+'专职教师,'
+							querytype1 = querytype1+'教师岗;'
 						}
 						if(item==3){
-							querytype1=querytype1+'博士后,'
+							querytype1=querytype1+'博士后;'
 						}
 						if(item==4){
 							querytype1 = querytype1 + '专职研究人员'
@@ -800,9 +1202,11 @@ router.get('/newqd_1',function(req,res){
 		function(cb){
 			console.log('querytype1--->',querytype1)
 			//return false
-			querytype1 = querytype1.split(',')
+			querytype1 = querytype1.split(';')
 			async.eachLimit(querytype1,1,function(item,callback){
-				let search = people.find({'usertype':{'$regex':item}})
+				console.log('item',item)
+				if(item){
+					let search = people.find({'usertype':{'$regex':item}})
 					//search.sort({'usertype':-1})
 					search.sort({'cardno':1})
 					search.exec(function(error,docs){
@@ -815,17 +1219,24 @@ router.get('/newqd_1',function(req,res){
 							//cb('人员列表为空')
 						}
 						if(docs.length!=0){
-							console.log('dddd',docs)
+							console.log('dddd',docs.length)
 							docs.forEach(function(newitem,newindex){
 								allpeople.push(newitem)
 							})
+
 							callback()							//cb(null)
 						}
 					})
+				}else{
+					callback()
+				}
+				
 			},function(error){
 				if(error){
 					cb(error)
 				}
+				console.log('allpeople',allpeople.length)
+				//return
 				cb()
 			})
 			// let search = people.find({})
@@ -849,7 +1260,9 @@ router.get('/newqd_1',function(req,res){
 			wqd = allpeople
 			console.log('wqd 人数',wqd.length,yqd.length)
 			async.eachLimit(yqd,1,function(item,callback){
+				console.log('可以到这里')
 				removeArr(wqd,item)
+				console.log('wqd 人数',wqd.length,yqd.length)
 				callback()
 			},function(err){
 				if(err){
@@ -911,6 +1324,135 @@ router.get('/newqd_1',function(req,res){
 		}
 		//res.json({'yqd':yqd,'wqd':wqd})
 		return res.render('viewqdstate',{'yqd':yqd,'wqd':wqd,'shijian':shijian})
+	})
+}).post('/delpeople',function(req,res){
+	people.deleteOne({'_id':req.body._id},function(err){
+		if(err){
+			console.log('deleteOne err',err)
+			return res.json({'code':-1,'msg':err})
+		}
+		return res.json({'code':0,'msg':'deleteOne success'})
+	})
+}).get('/wx_viewqdstate',function(req,res){
+	console.log('code---->',req.query.code)
+	let allpeople = [],yqd = [],wqd = [],shijian,querytype = '',querytype1=''
+	async.waterfall([
+		function(cb){
+			let search = qdrecord.find({})
+				search.where('code').equals(req.query.code)
+				search.sort({'usertype':-1})
+				search.sort({'cardno':1})
+				search.exec(function(error,docs){
+					console.log('check doc---->',docs.length)
+					if(error){
+						cb(error)
+					}
+					if(docs.length==0){
+						cb('还没有人签到')
+					}
+					if(docs.length!=0){
+						yqd = docs
+						cb(null)
+					}
+				})
+		},
+		function(cb){
+			let search = add_qd.findOne({})
+				search.where('code').equals(req.query.code)
+				search.exec(function(err,doc){
+					if(err){
+						cb(err)
+					}
+					shijian = doc
+					querytype = shijian.choose.split(',')
+					querytype.forEach(function(item,index){
+						if(item==1){
+							querytype1=querytype1+'管理技术岗,'
+						}
+						if(item==2){
+							querytype1 = querytype1+'教师岗,'
+						}
+						if(item==3){
+							querytype1=querytype1+'博士后,'
+						}
+						if(item==4){
+							querytype1 = querytype1 + '专职研究人员'
+						}
+					})
+					cb()
+				})
+		},
+		function(cb){
+			console.log('querytype1--->',querytype1)
+			//return false
+			querytype1 = querytype1.split(',')
+			async.eachLimit(querytype1,1,function(item,callback){
+				console.log('item',item)
+				if(item){
+					let search = people.find({'usertype':{'$regex':item}})
+					//search.sort({'usertype':-1})
+					search.sort({'cardno':1})
+					search.exec(function(error,docs){
+						if(error){
+							callback(error)
+						}
+						if(docs.length==0){
+							allpeople.unshift(null)
+							callback()
+							//cb('人员列表为空')
+						}
+						if(docs.length!=0){
+							console.log('dddd',docs.length)
+							docs.forEach(function(newitem,newindex){
+								allpeople.push(newitem)
+							})
+
+							callback()							//cb(null)
+						}
+					})
+				}else{
+					callback()
+				}
+				
+			},function(error){
+				if(error){
+					cb(error)
+				}
+				console.log('allpeople',allpeople.length)
+				//return
+				cb()
+			})
+
+		},
+		function(cb){
+			//限制并发个数
+			wqd = allpeople
+			console.log('wqd 人数',wqd.length,yqd.length)
+			async.eachLimit(yqd,1,function(item,callback){
+				removeArr(wqd,item)
+				callback()
+			},function(err){
+				if(err){
+					console.log('err',err)
+					return res.json(err)
+				}
+				//console.log('newarr',wqd)
+				cb()
+				//return res.json(wqd.length)
+			})
+			
+			
+			
+		}//,
+		
+	],function(error,result){
+		if(error){
+			console.log('async waterfall err',error)
+			return res.end(error)
+		}
+		//res.json({'yqd':yqd,'wqd':wqd})
+		return res.json({'yqd':yqd,'wqd':wqd,'shijian':shijian})
+		//return res.render('viewqdstate',{'yqd':yqd,'wqd':wqd,'shijian':shijian})
 	})
 })
 router.post('/qj',function(req,res){
@@ -1110,9 +1652,14 @@ function uniqObjInArray(objarray){
     return res;
 }
 function removeArr(_arr,_obj){
+	console.log('进来了',_obj.cardno)
 	let length = _arr.length
+	console.log('length',length)
 	for(let i = 0;i<length;i++){
+		//console.log('????????',_arr)
+		//return false
 		if(_arr[i].cardno == _obj.cardno){
+			console.log('找到了')
 			if(i==0){
 				_arr.shift()
 				return _arr
@@ -1126,7 +1673,10 @@ function removeArr(_arr,_obj){
 				return _arr
 			}
 		}
-	}
+		// }else{
+		// 	console.log('没找到')
+		// }
+	}//for
 }
 //emp.remove('fd');
 module.exports = router;

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= data.title %></title>
+    <title>添加人员</title>
     <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -20,39 +20,40 @@
       </div>
     </div>
     <div class="layui-container">  
-      <div class="layui-row">
-        <div class="layui-col-xs12">
-          <p style="text-align: center;"><%=data.title%></p>
-        </div>
-      </div>
-      <div class="layui-row">
-        <div class="layui-col-xs12">
-          <%-data.content%>
-        </div>
-      </div>
+      
     <div>
-    <!--   <p style="line-height: 28px;">1， 教职工上班时间定在3月上旬，上班形式和具体日期学校将另行通知。</p>
-      <p style="line-height: 28px;">2， 仍在疫情重点地区（湖北/温州）的老师，返深安排学院将会单独电话通知。</p>
-      <p style="line-height: 28px;">3， 非疫情重点地区的老师，根据深圳市的要求，回深后需要在社区报备后自行观察14天，观察期结束身体状况良好方可返校。</p>
-      <p style="line-height: 28px;">4， 已返深14天的老师，身体状况良好的，在必要的情况下，可填写申请表进入校园。原则上不鼓励返校。</p>
-      <p style="line-height: 28px;">5， 已经录取但未入职报到的教职工，原定报到时间是3月2日开始，现具体启动报到时间请等待学校最新通知。</p>
-      <p style="line-height: 28px;">6， 请各位老师在家和返校期间做好个人防护工作。</p>
-      <p style="line-height: 28px;">7， 原住在校内的教职工（辅导员宿舍、校内中转房等），可先填写教职工返校申请表，待学校审批通过后，可以返校，返校后需要自行在家或宿舍观察14天后方可外出。</p> -->
     <form class="layui-form" action="" style="margin-top:15px;">
-            <div class="layui-form-item">
-              <label class="layui-form-label">校园卡号</label>
-              <div class="layui-input-block">
-                <input type="text" name="cardno" required  lay-verify="required" placeholder="请输入校园卡号"  class="layui-input" id="cardno">
-              </div>
-            </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">校园卡号</label>
+        <div class="layui-input-block">
+          <input type="text" name="cardno" required  lay-verify="required" placeholder="请输入校园卡号"  class="layui-input" id="cardno">
+        </div>
+      </div>
 
-              <!-- <div class="layui-form-item">
-                <label class="layui-form-label">通知详情</label>
-                <div class="layui-input-block">
-                   
-                </div>
-              </div> -->
-
+      <div class="layui-form-item">
+        <label class="layui-form-label">姓名</label>
+        <div class="layui-input-block">
+          <input type="text" name="name" required  lay-verify="required" placeholder="请输入姓名"  class="layui-input" id="name">
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">用人方式</label>
+        <div class="layui-input-block">
+          <input type="text" name="usertype" required  lay-verify="required" placeholder="请输入用人方式"  class="layui-input" id="usertype">
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">手机号码</label>
+        <div class="layui-input-block">
+          <input type="text" name="phone" placeholder=""  class="layui-input" id="phone">
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">状态</label>
+        <div class="layui-input-block">
+          <input type="text" name="userstate"  placeholder="在岗/停薪"  class="layui-input" id="userstate">
+        </div>
+      </div>
             <div class="layui-form-item">
               <div class="layui-input-block">
                 <button class="layui-btn" lay-submit lay-filter="formDemo">确认</button>
@@ -61,7 +62,6 @@
           </form>
           <div class="layui-row">
       <div class="layui-col-xs12">
-      <p>请输入校园卡号并点击确认代表您已收到该消息。</p>
       </div>
     </div>
     <div class="layui-row">
@@ -84,23 +84,14 @@
     'use strict'
     $(document).ready(function() {
       let form = layui.form,$ = layui.$,layer=layui.layer
-      // layer.alert('<%=data.title%>，请输入校园卡号并点击确认代表你已收到该消息。', {
-      //   skin: 'layui-layer-molv' //样式类名
-      //   ,offset:['250px','10px']
-      //   ,closeBtn: 0
-      //  // ,area: ['300px', '240px']
-      //   ,end:function(){
-
-      //   }
-      // });
       //监听提交 13760277012
       form.on('submit(formDemo)', function(data){
         console.log('data',data)
-        data.field.code = '<%=data.code%>'
+        
         
         //return false
         $.ajax({
-          url:'/xyqd/add_qd_1',
+          url:'/xyqd/add_people',
           type:'POST',
           data:data.field,
           dataType : "json",
@@ -109,24 +100,22 @@
             if(result.code == 0){
               console.log('add success')
               //墨绿深蓝风
-            let frameindex = layer.msg('ok', {
+            let frameindex = layer.alert('操作成功', {
               skin: 'layui-layer-molv' //样式类名
               ,closeBtn: 0
             }, function(){
               layer.close(frameindex);
               parent.layer.closeAll()
-              window.location.href="/xyqd/viewqdstate?code=<%=data.code%>"
-              //window.location('/xyqd/viewqdstate?code=<%=data.code%>')
+              
             });         
             }else{
-              let frameindex =  layer.msg(result.msg, {
+              let frameindex =  layer.alert(result.msg, {
               skin: 'layui-layer-molv' //样式类名
               ,closeBtn: 0
             }, function(){
               layer.close(frameindex);
               //parent.layer.closeAll()
-              //window.location.href="/xyqd/viewqdstate?code=<%=data.code%>"
-              //window.location('/xyqd/viewqdstate?code=<%=data.code%>')
+              
             })//
               //layer.msg(result.msg )
               return false
