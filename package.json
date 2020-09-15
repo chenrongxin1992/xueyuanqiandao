@@ -16,7 +16,7 @@
     "express-session": "^1.15.6",
     "moment": "^2.21.0",
     "mongoose": "^5.0.9",
-    "morgan": "~1.8.1",
+    "morgan": "~1.10.0",
     "multiparty": "^4.2.1",
     "request": "^2.83.0",
     "serve-favicon": "~2.4.2"
